@@ -21,9 +21,19 @@
             android:background="?attr/colorPrimary"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
+
+
+
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/content_main" />
+
+
+
+    <include layout="@layout/content_main"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/top"
+        />
 
 
 

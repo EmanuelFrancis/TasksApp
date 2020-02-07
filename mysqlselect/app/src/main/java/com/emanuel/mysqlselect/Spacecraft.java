@@ -2,7 +2,7 @@ package com.emanuel.mysqlselect;
 
 public class Spacecraft {
     int id;
-    String name,priority,description;
+    String name,priority,description, catagory;
 
     public int getId() {
         return id;
@@ -34,5 +34,13 @@ public class Spacecraft {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getCatagory() {
+        return catagory;
+    }
+
+    public void setCatagory(String catagory) {
+        this.catagory = catagory;
     }
 }

@@ -12,9 +12,28 @@
     tools:context="com.emanuel.mysqlselect.MainActivity"
     tools:showIn="@layout/activity_main">
 
+    <Spinner
+        android:id="@+id/drp_view_cat"
+        android:layout_width="249dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/spinner_bg"
+        android:dropDownVerticalOffset="?attr/dropdownListPreferredItemHeight"
+        android:paddingRight="14dp"
+        android:popupElevation="3dp"
+        android:spinnerMode="dropdown"
+        android:stateListAnimator="@drawable/spinner_sla"
+        android:text="Select A Catagory"
+
+        />
+
     <ListView
         android:id="@+id/lv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        />
+        android:layout_below="@id/drp_view_cat"
+        >
+
+
+    </ListView>
 </RelativeLayout>

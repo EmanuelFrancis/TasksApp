@@ -7,8 +7,12 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -19,20 +23,27 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.List;
 
-public class AddTaskActivity extends Activity {
+public class AddTaskActivity extends AppCompatActivity {
 
 
 
-    private Spinner dropdown_cat; //declare task category dropdown box ie, daily, head to toe, beauty plus etc
-    private Spinner dropdown_priority; //declare priority dropdown ie, a b c
+  // private Spinner dropdownList; //declare task category dropdown box ie, daily, head to toe, beauty plus etc
+ //   private Spinner dropdown_priority; //declare priority dropdown ie, a b c
     private Spinner dropdown_status; //declare status dropdown
-    private ArrayAdapter<String> adapter;
+     private ArrayAdapter<String> adapter;
     Button submit_task;
+    String urlAddress= "http://www.emanuelfrancis.com/read_info.php";
 
-
-    EditText  Task, Task_Desc, Deadline, Est_Time, Actual_Time;
+    EditText  Task, Task_Desc, Deadline, Est_Time, Actual_Time, Priority;
     String   priority, task, task_desc, status, deadline, est_time, actual_time, catagory;
+    Catagory catagories = new Catagory();
+    List catagoriesList;
+    String activityName = "addTask";
+    String downloadTaskName = "null";
+  //  Spinner Priority;
+    public String selectedVal;
 
 
     @Override
@@ -41,16 +52,29 @@ public class AddTaskActivity extends Activity {
         setContentView(R.layout.activity_add_task);
 
 
-        dropdown_cat = findViewById(R.id.drp_select_cat);
-        String[] items = new String[]{"Daily", "Web Artists", "Head To Toe"};
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
-        dropdown_cat.setAdapter(adapter);
 
 
-        dropdown_priority = findViewById(R.id.drp_select_prior);
-        String[] items2 = new String[]{"A", "B", "C"};
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items2);
-        dropdown_priority.setAdapter(adapter);
+        catagoriesList = catagories.getCatagoryList();
+
+     final Spinner dropdown_cat = findViewById(R.id.drp_select_cat);
+     downloadTaskName = "DL_catagories";
+
+      //  String[] items = new String[]{"Daily", "Web Artists", "Head To Toe"};
+      //  adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, catagoriesList);
+     //   dropdown_cat.setAdapter(adapter);
+
+        final ListView lv= (ListView) findViewById(R.id.lv);
+        Downloader d=new Downloader(AddTaskActivity.this,urlAddress,lv, dropdown_cat, activityName, downloadTaskName);
+        d.execute();
+
+        final Spinner  dropdown_priority = findViewById(R.id.drp_select_prior);
+        downloadTaskName = "DL_priorities";
+     //   String[] items2 = new String[]{"A", "B", "C"};
+     //   adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items2);
+     //   dropdown_priority.setAdapter(adapter);
+
+        Downloader e=new Downloader(AddTaskActivity.this,urlAddress,lv, dropdown_priority , activityName, downloadTaskName);
+        e.execute();
 
         dropdown_status = findViewById(R.id.drp_select_status);
         String[] items3 = new String[]{"Not Started", "In Progress", "Complete"};
@@ -58,19 +82,21 @@ public class AddTaskActivity extends Activity {
         dropdown_status.setAdapter(adapter);
 
 
+
         Task = findViewById(R.id.et_task_name);
         Task_Desc = findViewById(R.id.et_task_notes);
+        Actual_Time = findViewById(R.id.et_act_time);
         Deadline = findViewById(R.id.et_deadline);
         Est_Time = findViewById(R.id.et_est_time);
-        Actual_Time = findViewById(R.id.et_act_time);
+       // Priority = selectedVal;
 
         submit_task = findViewById(R.id.btn_sub_task);
         submit_task.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 task = Task.getText().toString();
-                task_desc = "null";//Task_Desc.getText().toString();
-                priority = "null";//dropdown_priority.getSelectedItem().toString();
+                task_desc = Task_Desc.getText().toString();//Task_Desc.getText().toString();
+                priority = selectedVal;//dropdown_priority.getSelectedItem().toString();
                 status = "null";
                 deadline = "null";
                 est_time = "null";
@@ -94,7 +120,8 @@ public class AddTaskActivity extends Activity {
 
         @Override
         protected void onPreExecute(){
-            add_task_url = "http://www.emanuelfrancis.com/add_info.php";
+
+
         }
 
 
@@ -103,14 +130,15 @@ public class AddTaskActivity extends Activity {
         protected String doInBackground(String... args){
             String priority, task, task_desc, status, deadline, est_time, actual_time, catagory;
 
-            priority = dropdown_priority.getSelectedItem().toString();//args[1];
+            //priority = dropdown_priority.getSelectedItem().toString();//args[1];
+            priority = selectedVal.toString();//args[1];
             task = Task.getText().toString();//args[2];
             task_desc =Task_Desc.getText().toString();//args[3];
             status ="null";// args[4];
             deadline ="null";//args[5];
             est_time = "null";//args[6];
             actual_time = "null";//args[7];
-            catagory = dropdown_cat.getSelectedItem().toString();//args[8];
+          //  catagory = dropdown_cat.getSelectedItem().toString();//args[8];
 
             try{
                 URL url = new URL(add_task_url);
@@ -125,8 +153,8 @@ public class AddTaskActivity extends Activity {
                         URLEncoder.encode("status", "UTF-8")+"="+URLEncoder.encode(status,"UTF-8")+"&"+
                         URLEncoder.encode("deadline", "UTF-8")+"="+URLEncoder.encode(deadline,"UTF-8")+"&"+
                         URLEncoder.encode("est_time", "UTF-8")+"="+URLEncoder.encode(est_time,"UTF-8")+"&"+
-                        URLEncoder.encode("actual_time", "UTF-8")+"="+URLEncoder.encode(actual_time,"UTF-8")+"&"+
-                        URLEncoder.encode("catagory", "UTF-8")+"="+URLEncoder.encode(catagory,"UTF-8");
+                        URLEncoder.encode("actual_time", "UTF-8")+"="+URLEncoder.encode(actual_time,"UTF-8");
+        //                URLEncoder.encode("catagory", "UTF-8")+"="+URLEncoder.encode(catagory,"UTF-8");
                 bufferedWriter.write(data_string);
                 bufferedWriter.flush();
                 bufferedWriter.close();
@@ -159,6 +187,12 @@ public class AddTaskActivity extends Activity {
         protected void onPostExecute(String result){
             Toast.makeText(getApplicationContext(),result,Toast.LENGTH_LONG).show();
         }
+    }
+
+    public Void setCatagory(String catag) {
+        //catagories = new ArrayList<String>();
+        selectedVal = catag;
+        return null;
     }
 
 

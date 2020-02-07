@@ -11,13 +11,17 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+
+
+
     <TextView
+        android:id="@+id/title_add_task_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Add New Task"
         android:layout_marginTop="10dp"
         android:layout_centerHorizontal="true"
-        android:id="@+id/title_add_task_name"/>
+/>
 
     <Button
         android:id="@+id/btn_add_cat"
@@ -42,47 +46,49 @@
         android:stateListAnimator="@drawable/spinner_sla"
         android:dropDownVerticalOffset="?attr/dropdownListPreferredItemHeight"
         android:paddingRight="14dp"
-        android:popupBackground="@android:color/black"
         android:popupElevation="3dp"
+        android:color="#000000"
         />
 
 
 
     <EditText
+        android:id="@+id/et_task_name"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:hint="Enter Task Name"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/drp_select_cat"
         android:layout_marginTop="30dp"
-        android:id="@+id/et_task_name"
+
         />
 
     <EditText
+        android:id="@+id/et_task_notes"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:hint="Enter Task Notes"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/et_task_name"
         android:layout_marginTop="30dp"
-        android:id="@+id/et_task_notes"
+
         />
 
     <Spinner
         android:id="@+id/drp_select_prior"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:text="Select Priority"
+        android:text="Select A Priority"
         android:background="@drawable/spinner_bg"
         android:spinnerMode="dropdown"
         android:layout_below="@id/et_task_notes"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         android:layout_centerHorizontal="true"
         android:stateListAnimator="@drawable/spinner_sla"
         android:dropDownVerticalOffset="?attr/dropdownListPreferredItemHeight"
         android:paddingRight="14dp"
-        android:popupBackground="@android:color/black"
         android:popupElevation="3dp"
+        android:color="#000000"
         />
 
 

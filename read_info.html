@@ -1,0 +1,35 @@
+<?php
+
+
+
+$server_name = "emanuelfrancis.com";
+$mysql_username = "emanuelf_user02";
+$mysql_password = "jP(hWbnBd[Pk";
+$mydb_name = "emanuelf_Tasks";
+
+
+
+$con = mysqli_connect($server_name, $mysql_username, $mysql_password, $mydb_name);
+
+if(mysqli_connect_error($con))
+{
+    echo "Failed to Connect to Database ".mysqli_connect_error();
+}
+
+$sql="SELECT * FROM general_tasks";
+
+$result=mysqli_query($con,$sql);
+if($result)
+{
+    while($row=mysqli_fetch_array($result))
+    {
+        $flag[]=$row;
+    }
+
+    print(json_encode($flag));
+
+}
+
+mysqli_close($con);
+
+?>

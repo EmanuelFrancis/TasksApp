@@ -13,18 +13,26 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 
+import android.widget.Spinner;
+
 public class Downloader extends AsyncTask<Void,Void,String> {
 
     Context c;
     String urlAddress;
     ListView lv;
+    Spinner dropdownList;
+    String activityName;
+    String downloadTaskName;
 
     ProgressDialog pd;
 
-    public Downloader(Context c, String urlAddress, ListView lv) {
+    public Downloader(Context c, String urlAddress, ListView lv, Spinner dropdownList, String activityName, String downloadTaskName) {
         this.c = c;
         this.urlAddress = urlAddress;
         this.lv = lv;
+        this.dropdownList = dropdownList;
+        this.activityName = activityName;
+        this.downloadTaskName = downloadTaskName;
     }
 
     @Override
@@ -54,7 +62,7 @@ public class Downloader extends AsyncTask<Void,Void,String> {
         }else
         {
             //CALL DATA PARSER TO PARSE
-            DataParser parser=new DataParser(c,lv,s);
+            DataParser parser=new DataParser(c,lv,s, dropdownList, activityName, downloadTaskName);
             parser.execute();
 
         }

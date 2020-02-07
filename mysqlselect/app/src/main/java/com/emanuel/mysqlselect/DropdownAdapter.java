@@ -10,23 +10,23 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.os.Bundle;
+import android.widget.Spinner;
 
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.Inflater;
 
-public class CustomAdapter extends BaseAdapter {
+public class DropdownAdapter extends BaseAdapter {
 
     Context c;
-    ArrayList<Spacecraft> spacecrafts;
+    List<Catagory> catagories;
     LayoutInflater inflater;
     public static String cat;
-  //  public ArrayList<String> catagories;
-   // public List<String> catagories = new ArrayList<String>();
-   // public List<String> catStore = new CatagoriesList()
+    ArrayList<Spacecraft> spacecrafts;
 
-    public CustomAdapter(Context c, ArrayList<Spacecraft> spacecrafts) {
+
+    public DropdownAdapter(Context c, ArrayList<Spacecraft> spacecrafts) {
         this.c = c;
         this.spacecrafts = spacecrafts;
 
@@ -56,7 +56,7 @@ public class CustomAdapter extends BaseAdapter {
     @Override
     public long getItemId(int position) {
 
-        return spacecrafts.get(position).getId();
+       return spacecrafts.get(position).getId();
     }
 
 
@@ -66,25 +66,22 @@ public class CustomAdapter extends BaseAdapter {
     public View getView(final int position, View convertView, ViewGroup parent) {
         if(convertView==null)
         {
-            convertView=inflater.inflate(R.layout.model,parent,false);
+            convertView=inflater.inflate(android.R.layout.simple_spinner_dropdown_item,parent,false);
 
         }
 
 
 
-        TextView nameTxt= (TextView) convertView.findViewById(R.id.nameTxt);
-        TextView priorityTxt= (TextView) convertView.findViewById(R.id.priorityTxt);
-        TextView descTxt= (TextView) convertView.findViewById(R.id.descTxt);
+        cat = spacecrafts.get(position).getCatagory();
+        Catagory catag = new Catagory();
+        catag.setCatagory(cat);
 
 
 
-        nameTxt.setText(spacecrafts.get(position).getName());
-        priorityTxt.setText(spacecrafts.get(position).getPriority());
-        descTxt.setText(spacecrafts.get(position).getDescription());
 
 
 
-      //  Catagory.add
+        //  Catagory.add
 
         //CatagoriesList catString = new CatagoriesList(cat);
 
@@ -101,17 +98,19 @@ public class CustomAdapter extends BaseAdapter {
 
         return convertView;
     }
-  //  public  void  GetCatagories(String cat){
+    //  public  void  GetCatagories(String cat){
 
-  //      String addCat = cat;
-  //      catagories.set(0, addCat);
+    //      String addCat = cat;
+    //      catagories.set(0, addCat);
 
-  //  }
+    //  }
 
     static String getCat()
     {
         //String cat;
         return cat;
     }
+
+
 
 }

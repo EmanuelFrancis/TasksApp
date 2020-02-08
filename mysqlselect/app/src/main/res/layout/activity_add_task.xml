@@ -96,17 +96,17 @@
         android:id="@+id/drp_select_status"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:text="Select Status"
+        android:text="Select A Priority"
         android:background="@drawable/spinner_bg"
         android:spinnerMode="dropdown"
         android:layout_below="@id/drp_select_prior"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         android:layout_centerHorizontal="true"
         android:stateListAnimator="@drawable/spinner_sla"
         android:dropDownVerticalOffset="?attr/dropdownListPreferredItemHeight"
         android:paddingRight="14dp"
-        android:popupBackground="@android:color/black"
         android:popupElevation="3dp"
+        android:color="#000000"
         />
 
     <EditText
@@ -114,7 +114,7 @@
         android:layout_height="wrap_content"
         android:hint="Enter Deadline"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/drp_select_prior"
+        android:layout_below="@+id/drp_select_status"
         android:layout_marginTop="30dp"
         android:id="@+id/et_deadline"
         />
@@ -150,7 +150,15 @@
 
         />
 
+    <ListView
+        android:id="@+id/lv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btn_sub_task"
+        >
 
+
+    </ListView>
 
 
 </RelativeLayout>

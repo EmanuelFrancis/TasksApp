@@ -23,6 +23,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.List;
 
 public class AddTaskActivity extends AppCompatActivity {
@@ -36,14 +37,17 @@ public class AddTaskActivity extends AppCompatActivity {
     Button submit_task;
     String urlAddress= "http://www.emanuelfrancis.com/read_info.php";
 
-    EditText  Task, Task_Desc, Deadline, Est_Time, Actual_Time, Priority;
-    String   priority, task, task_desc, status, deadline, est_time, actual_time, catagory;
+    EditText  Task, Task_Desc, Deadline, Est_Time, Actual_Time;
+    String   priority, task, task_desc, status, deadline, est_time, actual_time, catagory, Catagory, Priority, Status;
     Catagory catagories = new Catagory();
     List catagoriesList;
     String activityName = "addTask";
     String downloadTaskName = "null";
   //  Spinner Priority;
-    public String selectedVal;
+    public String selectedCatagory;
+    public String selectedPriority;
+    public String selectedStatus;
+    ArrayList<Spacecraft> taskDetails=new ArrayList<>();
 
 
     @Override
@@ -77,10 +81,15 @@ public class AddTaskActivity extends AppCompatActivity {
         e.execute();
 
         dropdown_status = findViewById(R.id.drp_select_status);
-        String[] items3 = new String[]{"Not Started", "In Progress", "Complete"};
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items3);
-        dropdown_status.setAdapter(adapter);
+        downloadTaskName = "DL_status";
 
+        Downloader f=new Downloader(AddTaskActivity.this,urlAddress,lv, dropdown_status , activityName, downloadTaskName);
+        f.execute();
+
+
+        //taskDetails = DataParser.
+
+       // Toast.makeText(getApplicationContext(),selectedCatagory,Toast.LENGTH_LONG).show();
 
 
         Task = findViewById(R.id.et_task_name);
@@ -88,7 +97,25 @@ public class AddTaskActivity extends AppCompatActivity {
         Actual_Time = findViewById(R.id.et_act_time);
         Deadline = findViewById(R.id.et_deadline);
         Est_Time = findViewById(R.id.et_est_time);
-       // Priority = selectedVal;
+        if (selectedCatagory == null) {
+            Catagory = "Catagory null";
+        }else {
+            Catagory = selectedCatagory;
+        }
+        if (selectedPriority == null) {
+            Priority = "Priority null";
+        }else {
+            Priority = selectedPriority;
+        }
+        if (selectedStatus == null) {
+            Status = "Status null";
+        }else {
+            Status = selectedStatus;
+        }
+
+
+
+
 
         submit_task = findViewById(R.id.btn_sub_task);
         submit_task.setOnClickListener(new View.OnClickListener() {
@@ -96,12 +123,12 @@ public class AddTaskActivity extends AppCompatActivity {
             public void onClick(View view) {
                 task = Task.getText().toString();
                 task_desc = Task_Desc.getText().toString();//Task_Desc.getText().toString();
-                priority = selectedVal;//dropdown_priority.getSelectedItem().toString();
-                status = "null";
-                deadline = "null";
-                est_time = "null";
-                actual_time = "null";
-                catagory = "null";//dropdown_cat.getSelectedItem().toString();
+                priority = Priority;//dropdown_priority.getSelectedItem().toString();
+                status = Status;
+                deadline = Deadline.getText().toString();
+                est_time = Est_Time.getText().toString();
+                actual_time = Actual_Time.getText().toString();
+                catagory = Catagory;//dropdown_cat.getSelectedItem().toString();
                 BackgroundTask backgroundTask = new BackgroundTask();
                 backgroundTask.execute(priority,task,task_desc,status,deadline,est_time,actual_time,catagory);
                 finish();
@@ -121,7 +148,7 @@ public class AddTaskActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute(){
 
-
+            add_task_url = "http://www.emanuelfrancis.com/add_info.php";
         }
 
 
@@ -130,15 +157,19 @@ public class AddTaskActivity extends AppCompatActivity {
         protected String doInBackground(String... args){
             String priority, task, task_desc, status, deadline, est_time, actual_time, catagory;
 
+
+
             //priority = dropdown_priority.getSelectedItem().toString();//args[1];
-            priority = selectedVal.toString();//args[1];
+            priority = Priority;//args[1];
             task = Task.getText().toString();//args[2];
             task_desc =Task_Desc.getText().toString();//args[3];
-            status ="null";// args[4];
-            deadline ="null";//args[5];
-            est_time = "null";//args[6];
-            actual_time = "null";//args[7];
+            status =Status;// args[4];
+            deadline =Deadline.getText().toString();
+            est_time = Est_Time.getText().toString();
+            actual_time = Actual_Time.getText().toString();
+            catagory = Catagory;//dropdown_cat.getSelectedItem().toString();
           //  catagory = dropdown_cat.getSelectedItem().toString();//args[8];
+
 
             try{
                 URL url = new URL(add_task_url);
@@ -153,8 +184,8 @@ public class AddTaskActivity extends AppCompatActivity {
                         URLEncoder.encode("status", "UTF-8")+"="+URLEncoder.encode(status,"UTF-8")+"&"+
                         URLEncoder.encode("deadline", "UTF-8")+"="+URLEncoder.encode(deadline,"UTF-8")+"&"+
                         URLEncoder.encode("est_time", "UTF-8")+"="+URLEncoder.encode(est_time,"UTF-8")+"&"+
-                        URLEncoder.encode("actual_time", "UTF-8")+"="+URLEncoder.encode(actual_time,"UTF-8");
-        //                URLEncoder.encode("catagory", "UTF-8")+"="+URLEncoder.encode(catagory,"UTF-8");
+                        URLEncoder.encode("actual_time", "UTF-8")+"="+URLEncoder.encode(actual_time,"UTF-8")+"&"+
+                        URLEncoder.encode("catagory", "UTF-8")+"="+URLEncoder.encode(catagory,"UTF-8");
                 bufferedWriter.write(data_string);
                 bufferedWriter.flush();
                 bufferedWriter.close();
@@ -175,7 +206,7 @@ public class AddTaskActivity extends AppCompatActivity {
             }
 
 
-            return null;
+            return "Issue";
         }
 
         @Override
@@ -191,7 +222,19 @@ public class AddTaskActivity extends AppCompatActivity {
 
     public Void setCatagory(String catag) {
         //catagories = new ArrayList<String>();
-        selectedVal = catag;
+        selectedCatagory = catag;
+        return null;
+    }
+
+    public Void setPriority(String prior) {
+        //catagories = new ArrayList<String>();
+        selectedPriority = prior;
+        return null;
+    }
+
+    public Void setStatus(String status) {
+        //catagories = new ArrayList<String>();
+        selectedStatus = status;
         return null;
     }
 

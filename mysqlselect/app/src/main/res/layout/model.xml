@@ -37,7 +37,6 @@
             android:padding="10dp"
             android:layout_below="@id/nameTxt"
             android:layout_alignParentLeft="true"
-
             />
 
         <TextView
@@ -49,6 +48,66 @@
             android:textColor="@color/colorPrimary"
             android:padding="10dp"
             android:layout_alignParentRight="true"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Status"
+            android:id="@+id/statusTxt"
+            android:textColor="@color/colorPrimary"
+            android:padding="10dp"
+            android:layout_below="@id/priorityTxt"
+            android:layout_alignParentRight="true"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Catagory"
+            android:id="@+id/catTxt"
+            android:textColor="@color/colorPrimary"
+            android:padding="10dp"
+            android:layout_below="@id/statusTxt"
+            android:layout_alignParentRight="true"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Deadline"
+            android:id="@+id/deadlineTxt"
+            android:textColor="@color/colorPrimary"
+            android:padding="10dp"
+            android:layout_below="@id/descTxt"
+            android:layout_alignParentLeft="true"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Est Time"
+            android:id="@+id/estTimeTxt"
+            android:textColor="@color/colorPrimary"
+            android:padding="10dp"
+            android:layout_below="@id/deadlineTxt"
+            android:layout_alignParentLeft="true"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Actual Time"
+            android:id="@+id/actualTimeTxt"
+            android:textColor="@color/colorPrimary"
+            android:padding="10dp"
+            android:layout_below="@id/estTimeTxt"
+            android:layout_alignParentLeft="true"
             />
 
     </RelativeLayout>

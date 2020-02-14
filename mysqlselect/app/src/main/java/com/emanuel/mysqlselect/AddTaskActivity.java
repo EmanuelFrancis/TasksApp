@@ -32,22 +32,28 @@ public class AddTaskActivity extends AppCompatActivity {
 
   // private Spinner dropdownList; //declare task category dropdown box ie, daily, head to toe, beauty plus etc
  //   private Spinner dropdown_priority; //declare priority dropdown ie, a b c
-    private Spinner dropdown_status; //declare status dropdown
+   // private Spinner Catagory, dropdown_status; //declare status dropdown
      private ArrayAdapter<String> adapter;
     Button submit_task;
     String urlAddress= "http://www.emanuelfrancis.com/read_info.php";
 
     EditText  Task, Task_Desc, Deadline, Est_Time, Actual_Time;
-    String   priority, task, task_desc, status, deadline, est_time, actual_time, catagory, Catagory, Priority, Status;
+    String   priority, task, task_desc, status, deadline, est_time, actual_time, catagory,  Priority, Status;
     Catagory catagories = new Catagory();
     List catagoriesList;
     String activityName = "addTask";
     String downloadTaskName = "null";
   //  Spinner Priority;
-    public String selectedCatagory;
-    public String selectedPriority;
-    public String selectedStatus;
-    ArrayList<Spacecraft> taskDetails=new ArrayList<>();
+    public String selectedCatagory = "null";
+    public String selectedPriority= "null";
+    public String selectedStatus= "null";
+    public ArrayList<Spacecraft> spacecrafts=new ArrayList<>();
+
+    public Spinner dropdown_cat = null;
+    public Spinner dropdown_priority = null;
+    public Spinner dropdown_status = null;
+
+    Spacecraft m = null;
 
 
     @Override
@@ -60,28 +66,28 @@ public class AddTaskActivity extends AppCompatActivity {
 
         catagoriesList = catagories.getCatagoryList();
 
-     final Spinner dropdown_cat = findViewById(R.id.drp_select_cat);
-     downloadTaskName = "DL_catagories";
 
-      //  String[] items = new String[]{"Daily", "Web Artists", "Head To Toe"};
-      //  adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, catagoriesList);
-     //   dropdown_cat.setAdapter(adapter);
+        Spacecraft cat = new Spacecraft();
+
+        dropdown_cat = findViewById(R.id.drp_select_cat);
+        downloadTaskName = "DL_catagories";
+        selectedCatagory = cat.getCatagory();
+
 
         final ListView lv= (ListView) findViewById(R.id.lv);
         Downloader d=new Downloader(AddTaskActivity.this,urlAddress,lv, dropdown_cat, activityName, downloadTaskName);
         d.execute();
 
-        final Spinner  dropdown_priority = findViewById(R.id.drp_select_prior);
+        dropdown_priority = findViewById(R.id.drp_select_prior);
         downloadTaskName = "DL_priorities";
-     //   String[] items2 = new String[]{"A", "B", "C"};
-     //   adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items2);
-     //   dropdown_priority.setAdapter(adapter);
+        selectedPriority = cat.getPriority();
 
         Downloader e=new Downloader(AddTaskActivity.this,urlAddress,lv, dropdown_priority , activityName, downloadTaskName);
         e.execute();
 
         dropdown_status = findViewById(R.id.drp_select_status);
         downloadTaskName = "DL_status";
+        selectedStatus = cat.getStatus();
 
         Downloader f=new Downloader(AddTaskActivity.this,urlAddress,lv, dropdown_status , activityName, downloadTaskName);
         f.execute();
@@ -97,20 +103,23 @@ public class AddTaskActivity extends AppCompatActivity {
         Actual_Time = findViewById(R.id.et_act_time);
         Deadline = findViewById(R.id.et_deadline);
         Est_Time = findViewById(R.id.et_est_time);
-        if (selectedCatagory == null) {
-            Catagory = "Catagory null";
+        if (selectedCatagory != null) {
+           // Catagory = findViewById(R.id.drp_select_cat);
+           // Catagory = selectedCatagory;
         }else {
-            Catagory = selectedCatagory;
+           // Catagory = "Catagory null";
         }
-        if (selectedPriority == null) {
-            Priority = "Priority null";
+        if (selectedPriority != null) {
+         //   Priority = selectedPriority;
+
         }else {
-            Priority = selectedPriority;
+         //   Priority = "Priority null";
         }
-        if (selectedStatus == null) {
-            Status = "Status null";
+        if (selectedStatus != null) {
+         //   Status = selectedStatus;
         }else {
-            Status = selectedStatus;
+
+        //    Status = "Status null";
         }
 
 
@@ -123,12 +132,14 @@ public class AddTaskActivity extends AppCompatActivity {
             public void onClick(View view) {
                 task = Task.getText().toString();
                 task_desc = Task_Desc.getText().toString();//Task_Desc.getText().toString();
-                priority = Priority;//dropdown_priority.getSelectedItem().toString();
-                status = Status;
+                priority = dropdown_priority.getSelectedItem().toString();//dropdown_priority.getSelectedItem().toString();
+                status = dropdown_status.getSelectedItem().toString();
                 deadline = Deadline.getText().toString();
                 est_time = Est_Time.getText().toString();
                 actual_time = Actual_Time.getText().toString();
-                catagory = Catagory;//dropdown_cat.getSelectedItem().toString();
+                catagory = dropdown_cat.getSelectedItem().toString();
+               // catagory = Catagory.toString();
+             //   catagory = Catagory;//dropdown_cat.getSelectedItem().toString();
                 BackgroundTask backgroundTask = new BackgroundTask();
                 backgroundTask.execute(priority,task,task_desc,status,deadline,est_time,actual_time,catagory);
                 finish();
@@ -160,14 +171,18 @@ public class AddTaskActivity extends AppCompatActivity {
 
 
             //priority = dropdown_priority.getSelectedItem().toString();//args[1];
-            priority = Priority;//args[1];
+
             task = Task.getText().toString();//args[2];
             task_desc =Task_Desc.getText().toString();//args[3];
-            status =Status;// args[4];
+
             deadline =Deadline.getText().toString();
             est_time = Est_Time.getText().toString();
             actual_time = Actual_Time.getText().toString();
-            catagory = Catagory;//dropdown_cat.getSelectedItem().toString();
+
+            catagory = dropdown_cat.getSelectedItem().toString();
+            priority = dropdown_priority.getSelectedItem().toString();//dropdown_priority.getSelectedItem().toString();
+            status = dropdown_status.getSelectedItem().toString();
+            //catagory = Catagory;//dropdown_cat.getSelectedItem().toString();
           //  catagory = dropdown_cat.getSelectedItem().toString();//args[8];
 
 

@@ -24,7 +24,7 @@ public class TasksViewActivity extends AppCompatActivity {
     private ArrayAdapter<String> adapter;
    // public List<String> cats = new ArrayList<>();
    String activityName = "viewTask";
-    
+
 
 
     @Override
@@ -47,6 +47,9 @@ public class TasksViewActivity extends AppCompatActivity {
 
 
     }
+
+
+
 
 
 

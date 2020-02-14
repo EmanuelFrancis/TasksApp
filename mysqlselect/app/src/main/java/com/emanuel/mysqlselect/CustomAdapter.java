@@ -26,6 +26,10 @@ public class CustomAdapter extends BaseAdapter {
    // public List<String> catagories = new ArrayList<String>();
    // public List<String> catStore = new CatagoriesList()
 
+    public String selectedCatagory;
+    public String selectedPriority;
+    public String selectedStatus;
+
     public CustomAdapter(Context c, ArrayList<Spacecraft> spacecrafts) {
         this.c = c;
         this.spacecrafts = spacecrafts;
@@ -75,12 +79,22 @@ public class CustomAdapter extends BaseAdapter {
         TextView nameTxt= (TextView) convertView.findViewById(R.id.nameTxt);
         TextView priorityTxt= (TextView) convertView.findViewById(R.id.priorityTxt);
         TextView descTxt= (TextView) convertView.findViewById(R.id.descTxt);
+        TextView statusTxt= (TextView) convertView.findViewById(R.id.statusTxt);
+        TextView catTxt= (TextView) convertView.findViewById(R.id.catTxt);
+        TextView deadlineTxt= (TextView) convertView.findViewById(R.id.deadlineTxt);
+        TextView estTimeTxt= (TextView) convertView.findViewById(R.id.estTimeTxt);
+        TextView actualTimeTxt= (TextView) convertView.findViewById(R.id.actualTimeTxt);
 
 
 
         nameTxt.setText(spacecrafts.get(position).getName());
         priorityTxt.setText(spacecrafts.get(position).getPriority());
         descTxt.setText(spacecrafts.get(position).getDescription());
+        statusTxt.setText(spacecrafts.get(position).getStatus());
+        catTxt.setText(spacecrafts.get(position).getCatagory());
+        deadlineTxt.setText(spacecrafts.get(position).getDeadline());
+        estTimeTxt.setText(spacecrafts.get(position).getEst_time());
+        actualTimeTxt.setText(spacecrafts.get(position).getAct_time());
 
 
 
@@ -113,5 +127,24 @@ public class CustomAdapter extends BaseAdapter {
         //String cat;
         return cat;
     }
+
+    public Void setCatagory(String catag) {
+        //catagories = new ArrayList<String>();
+        selectedCatagory = catag;
+        return null;
+    }
+
+    public Void setPriority(String prior) {
+        //catagories = new ArrayList<String>();
+        selectedPriority = prior;
+        return null;
+    }
+
+    public Void setStatus(String status) {
+        //catagories = new ArrayList<String>();
+        selectedStatus = status;
+        return null;
+    }
+
 
 }

@@ -1,8 +1,10 @@
 package com.emanuel.mysqlselect;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -11,6 +13,7 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -33,8 +36,9 @@ public class AddTaskActivity extends AppCompatActivity {
   // private Spinner dropdownList; //declare task category dropdown box ie, daily, head to toe, beauty plus etc
  //   private Spinner dropdown_priority; //declare priority dropdown ie, a b c
    // private Spinner Catagory, dropdown_status; //declare status dropdown
-     private ArrayAdapter<String> adapter;
+ //    private ArrayAdapter<String> adapter;
     Button submit_task;
+    Button add_new_catagory;
     String urlAddress= "http://www.emanuelfrancis.com/read_info.php";
 
     EditText  Task, Task_Desc, Deadline, Est_Time, Actual_Time;
@@ -44,16 +48,20 @@ public class AddTaskActivity extends AppCompatActivity {
     String activityName = "addTask";
     String downloadTaskName = "null";
   //  Spinner Priority;
-    public String selectedCatagory = "null";
-    public String selectedPriority= "null";
-    public String selectedStatus= "null";
-    public ArrayList<Spacecraft> spacecrafts=new ArrayList<>();
+  //  public String selectedCatagory = "null";
+ //   public String selectedPriority= "null";
+ //   public String selectedStatus= "null";
+//    public ArrayList<Spacecraft> spacecrafts=new ArrayList<>();
 
     public Spinner dropdown_cat = null;
     public Spinner dropdown_priority = null;
     public Spinner dropdown_status = null;
 
-    Spacecraft m = null;
+    public Downloader d=null;
+
+ //   Spacecraft m = null;
+
+   String m_Text = "";
 
 
     @Override
@@ -67,27 +75,28 @@ public class AddTaskActivity extends AppCompatActivity {
         catagoriesList = catagories.getCatagoryList();
 
 
-        Spacecraft cat = new Spacecraft();
+      //  Spacecraft cat = new Spacecraft();
 
         dropdown_cat = findViewById(R.id.drp_select_cat);
         downloadTaskName = "DL_catagories";
-        selectedCatagory = cat.getCatagory();
+      //  selectedCatagory = cat.getCatagory();
 
 
         final ListView lv= (ListView) findViewById(R.id.lv);
-        Downloader d=new Downloader(AddTaskActivity.this,urlAddress,lv, dropdown_cat, activityName, downloadTaskName);
+
+        d=new Downloader(AddTaskActivity.this,urlAddress,lv, dropdown_cat, activityName, downloadTaskName);
         d.execute();
 
         dropdown_priority = findViewById(R.id.drp_select_prior);
         downloadTaskName = "DL_priorities";
-        selectedPriority = cat.getPriority();
+   //     selectedPriority = cat.getPriority();
 
         Downloader e=new Downloader(AddTaskActivity.this,urlAddress,lv, dropdown_priority , activityName, downloadTaskName);
         e.execute();
 
         dropdown_status = findViewById(R.id.drp_select_status);
         downloadTaskName = "DL_status";
-        selectedStatus = cat.getStatus();
+  //      selectedStatus = cat.getStatus();
 
         Downloader f=new Downloader(AddTaskActivity.this,urlAddress,lv, dropdown_status , activityName, downloadTaskName);
         f.execute();
@@ -103,27 +112,75 @@ public class AddTaskActivity extends AppCompatActivity {
         Actual_Time = findViewById(R.id.et_act_time);
         Deadline = findViewById(R.id.et_deadline);
         Est_Time = findViewById(R.id.et_est_time);
-        if (selectedCatagory != null) {
+   //    if (selectedCatagory != null) {
            // Catagory = findViewById(R.id.drp_select_cat);
            // Catagory = selectedCatagory;
-        }else {
+  //      }else {
            // Catagory = "Catagory null";
-        }
-        if (selectedPriority != null) {
+   //     }
+  //      if (selectedPriority != null) {
          //   Priority = selectedPriority;
 
-        }else {
+ //       }else {
          //   Priority = "Priority null";
-        }
-        if (selectedStatus != null) {
+  //      }
+  //      if (selectedStatus != null) {
          //   Status = selectedStatus;
-        }else {
+  //      }else {
 
         //    Status = "Status null";
-        }
+  //      }
+
+
+        add_new_catagory = findViewById(R.id.btn_add_cat);
+        add_new_catagory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
 
 
+                AlertDialog.Builder builder = new AlertDialog.Builder(AddTaskActivity.this);
+                builder.setTitle("Title");
+
+// Set up the input
+                final EditText input = new EditText(AddTaskActivity.this);
+// Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+                input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                builder.setView(input);
+
+// Set up the buttons
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        m_Text = input.getText().toString();
+                      //  catagories.setCatagory(m_Text);
+                    //    List cat = new ArrayList<>();
+                    //    cat.add(m_Text);
+                    //    cat.addAll(catagories.getCatagoryList());
+                    //    dropdown_cat.addA
+                        activityName = "updateCatagoryList";
+                        DataUpdater updater=new DataUpdater(AddTaskActivity.this,lv,m_Text, dropdown_cat, activityName, downloadTaskName);
+                        updater.execute();
+                       // dropdown_cat.add(m_Text);
+                     //   downloadTaskName = "DL_catagories";
+                  //      Downloader g=new Downloader(AddTaskActivity.this,urlAddress,lv, dropdown_cat, activityName, downloadTaskName);
+                  //      g.execute();
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+                builder.show();
+
+           //     BackgroundTask backgroundTask = new BackgroundTask();
+          //      backgroundTask.execute(priority,task,task_desc,status,deadline,est_time,actual_time,catagory);
+         //       finish();
+            }
+        });
 
 
         submit_task = findViewById(R.id.btn_sub_task);
@@ -237,19 +294,19 @@ public class AddTaskActivity extends AppCompatActivity {
 
     public Void setCatagory(String catag) {
         //catagories = new ArrayList<String>();
-        selectedCatagory = catag;
+     //   selectedCatagory = catag;
         return null;
     }
 
     public Void setPriority(String prior) {
         //catagories = new ArrayList<String>();
-        selectedPriority = prior;
+  //      selectedPriority = prior;
         return null;
     }
 
     public Void setStatus(String status) {
         //catagories = new ArrayList<String>();
-        selectedStatus = status;
+     //   selectedStatus = status;
         return null;
     }
 

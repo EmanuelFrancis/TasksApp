@@ -14,18 +14,20 @@
 
     <Spinner
         android:id="@+id/drp_view_cat"
-        android:layout_width="249dp"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:background="@drawable/spinner_bg"
         android:dropDownVerticalOffset="?attr/dropdownListPreferredItemHeight"
+        android:paddingLeft="14dp"
+        android:paddingTop="14dp"
         android:paddingRight="14dp"
+        android:paddingBottom="14dp"
         android:popupElevation="3dp"
+
         android:spinnerMode="dropdown"
         android:stateListAnimator="@drawable/spinner_sla"
-        android:text="Select A Catagory"
-
-        />
+        android:text="Select A Catagory" />
 
     <ListView
         android:id="@+id/lv"

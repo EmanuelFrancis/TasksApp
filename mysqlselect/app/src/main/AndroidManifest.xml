@@ -16,9 +16,10 @@
         tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".AddTaskActivity"></activity>
         <activity
-            android:name=".TasksViewActivity"
+            android:name=".ViewTasksActivity"
             android:label="@string/title_activity_tasks_view"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".HomeActivity"
             android:label="@string/title_activity_home"

@@ -16,7 +16,7 @@ import java.net.HttpURLConnection;
 
 import android.widget.Spinner;
 
-public class Downloader extends AsyncTask<Void,Void,String> {
+public class Downloader2 extends AsyncTask<Void,Void,String> {
 
     Context c;
     String urlAddress;
@@ -27,13 +27,12 @@ public class Downloader extends AsyncTask<Void,Void,String> {
 
     ProgressDialog pd;
 
-    public Downloader(Context c, String urlAddress, ListView lv, String activityName) {
+    public Downloader2(Context c,ListView lv, String urlAddress) {
         this.c = c;
-        this.urlAddress = urlAddress;
         this.lv = lv;
-    //    this.dropdownList = dropdownList;
-        this.activityName = activityName;
-      //  this.downloadTaskName = downloadTaskName;
+        this.urlAddress = urlAddress;
+
+        //  this.downloadTaskName = downloadTaskName;
     }
 
     @Override
@@ -62,12 +61,13 @@ public class Downloader extends AsyncTask<Void,Void,String> {
 
         if(s==null)
         {
+            Log.d("FileTag", "All Tasks Read ");
             Toast.makeText(c,"Unsuccessfull,Null returned",Toast.LENGTH_SHORT).show();
         }else
         {
             //CALL DATA PARSER TO PARSE
-            DataParser parser=new DataParser(c,lv,s, activityName);
-            parser.execute();
+       //     ViewTasksParser parser2=new ViewTasksParser(c,lv,s);
+       //     parser2.execute();
 
         }
 

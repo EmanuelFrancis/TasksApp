@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -12,7 +13,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
-
+import android.widget.AdapterView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -47,21 +48,36 @@ public class AddTaskActivity extends AppCompatActivity {
     List catagoriesList;
     String activityName = "addTask";
     String downloadTaskName = "null";
+    public List addcat = new ArrayList<>();
+    public List addcatItems = new ArrayList<String>();
   //  Spinner Priority;
   //  public String selectedCatagory = "null";
  //   public String selectedPriority= "null";
  //   public String selectedStatus= "null";
 //    public ArrayList<Spacecraft> spacecrafts=new ArrayList<>();
 
-    public Spinner dropdown_cat = null;
-    public Spinner dropdown_priority = null;
-    public Spinner dropdown_status = null;
+  public   Spinner dropdown_cat = null;
+   public Spinner dropdown_priority = null;
+  public Spinner dropdown_status = null;
+    public String selectedCat;
+    ArrayAdapter<String> adapter3;
+    ArrayAdapter<String> adapter4;
+    ArrayAdapter<String> adapter5;
+    public String selectedItemText;
+    public ArrayList<Spacecraft> spacecrafts=new ArrayList<>();
+    int spacecraftsLength;
+    public SpinnersList spinners = new SpinnersList();
+    Spacecraft lol = new Spacecraft();
 
+//
     public Downloader d=null;
 
  //   Spacecraft m = null;
 
    String m_Text = "";
+
+
+
 
 
     @Override
@@ -72,34 +88,119 @@ public class AddTaskActivity extends AppCompatActivity {
 
 
 
-        catagoriesList = catagories.getCatagoryList();
-
-
-      //  Spacecraft cat = new Spacecraft();
-
-        dropdown_cat = findViewById(R.id.drp_select_cat);
-        downloadTaskName = "DL_catagories";
-      //  selectedCatagory = cat.getCatagory();
 
 
         final ListView lv= (ListView) findViewById(R.id.lv);
 
-        d=new Downloader(AddTaskActivity.this,urlAddress,lv, dropdown_cat, activityName, downloadTaskName);
+
+        d=new Downloader(AddTaskActivity.this,urlAddress,lv, activityName);
         d.execute();
 
+        dropdown_cat = findViewById(R.id.drp_select_cat);
+        spinners.holdSpinner(dropdown_cat);
+        downloadTaskName = "DL_catagories";
+      //  selectedCatagory = cat.getCatagory();
+
+        addcat.add("All");
+        addcatItems = catagories.getCatagoryList();
+        //    Log.d("FileTag", catagories.getdownloadTaskName(downloadTaskName));
+        addcat.addAll(addcatItems);
+
+        //          Log.d("downloadTaskName", downloadTaskName);
+
+        //SELECT AND ADD CATAGORY
+        //    if(downloadTaskName == "DL_catagories") {
+
+
+        adapter4 = new ArrayAdapter<>(AddTaskActivity.this, android.R.layout.simple_spinner_dropdown_item, addcat);
+        dropdown_cat.setAdapter(adapter4);
+        dropdown_cat.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                selectedItemText = (String) adapterView.getItemAtPosition(i);
+                selectedCat = selectedItemText;
+                Toast.makeText(AddTaskActivity.this, selectedItemText, Toast.LENGTH_SHORT).show();
+                // AddTaskActivity lol = new AddTaskActivity();
+                Spacecraft lol = new Spacecraft();
+                lol.setCatagory(selectedItemText);
+                //  spacecrafts.set(5,lol);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+                Toast.makeText(AddTaskActivity.this, "Nothing Selected", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+      //  catagoriesList = catagories.getCatagoryList();
+
+        String catsSize = String.valueOf(catagories.getSize());
+
+        spacecraftsLength = spacecrafts.size();
+
         dropdown_priority = findViewById(R.id.drp_select_prior);
+        spinners.holdSpinner(dropdown_priority);
         downloadTaskName = "DL_priorities";
+
+        String[] items2 = new String[]{"A", "B", "C"};
+        adapter5 = new ArrayAdapter<>(AddTaskActivity.this, android.R.layout.simple_spinner_dropdown_item, items2);
+        dropdown_priority.setAdapter(adapter5);
+        dropdown_priority.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                selectedItemText = (String) adapterView.getItemAtPosition(i);
+                //   AddTaskActivity lol = new AddTaskActivity();
+              //  Spacecraft lol = new Spacecraft();
+                lol.setPriority(selectedItemText);
+            //    spacecrafts.set(2,lol);
+              //  spacecrafts.get(position).
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+                Toast.makeText(AddTaskActivity.this, "Nothing Selected", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
    //     selectedPriority = cat.getPriority();
 
-        Downloader e=new Downloader(AddTaskActivity.this,urlAddress,lv, dropdown_priority , activityName, downloadTaskName);
-        e.execute();
+  //      Downloader e=new Downloader(AddTaskActivity.this,urlAddress,lv, dropdown_priority , activityName, downloadTaskName);
+   //     e.execute();
 
         dropdown_status = findViewById(R.id.drp_select_status);
+        spinners.holdSpinner(dropdown_status);
         downloadTaskName = "DL_status";
+
+
+        String[] items3 = new String[]{"Not Started", "In Progress", "Complete"};
+        adapter3 = new ArrayAdapter<>(AddTaskActivity.this, android.R.layout.simple_spinner_dropdown_item, items3);
+        dropdown_status.setAdapter(adapter3);
+        dropdown_status.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                selectedItemText = (String) adapterView.getItemAtPosition(i);
+                // selectedCat = selectedItemText;
+                //   AddTaskActivity lol = new AddTaskActivity();
+
+                lol.setStatus(selectedItemText);
+            //  lol.add(3,lol);
+
+
+                //   spacecrafts
+                //                Toast.makeText(c, selectedItemText, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+                Toast.makeText(AddTaskActivity.this, "Nothing Selected", Toast.LENGTH_SHORT).show();
+            }
+        });
   //      selectedStatus = cat.getStatus();
 
-        Downloader f=new Downloader(AddTaskActivity.this,urlAddress,lv, dropdown_status , activityName, downloadTaskName);
-        f.execute();
+      //  Downloader f=new Downloader(AddTaskActivity.this,urlAddress,lv, dropdown_status , activityName, downloadTaskName);
+     //   f.execute();
 
 
         //taskDetails = DataParser.
@@ -158,9 +259,13 @@ public class AddTaskActivity extends AppCompatActivity {
                     //    cat.add(m_Text);
                     //    cat.addAll(catagories.getCatagoryList());
                     //    dropdown_cat.addA
+                        downloadTaskName = "DL_catagories";
                         activityName = "updateCatagoryList";
-                        DataUpdater updater=new DataUpdater(AddTaskActivity.this,lv,m_Text, dropdown_cat, activityName, downloadTaskName);
-                        updater.execute();
+lol.setCatagory(m_Text);
+                     //   Spinner dropdownCat = spinners.getSpinner(dropdown_cat);
+
+              //          DataUpdater updater=new DataUpdater(AddTaskActivity.this,lv,m_Text, dropdownCat, activityName,downloadTaskName);
+                //        updater.execute();
                        // dropdown_cat.add(m_Text);
                      //   downloadTaskName = "DL_catagories";
                   //      Downloader g=new Downloader(AddTaskActivity.this,urlAddress,lv, dropdown_cat, activityName, downloadTaskName);

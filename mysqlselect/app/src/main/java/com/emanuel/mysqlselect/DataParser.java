@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -23,23 +24,27 @@ public class DataParser  extends AsyncTask<Void,Void,Integer>{
     Context c;
     ListView lv;
     String jsonData;
-    Spinner dropdownList;
+    Spinner dropdown_status;
     Spinner dropdown_cat;
     Spinner dropdown_priority;
+
+    public SpinnersList spinners = new SpinnersList();
 
     ProgressDialog pd;
 
     public ArrayList<Spacecraft> spacecrafts=new ArrayList<>();
-    ArrayList<Spacecraft> spacecraftsCat=new ArrayList<>();
+    ArrayList<Spacecraft> chosenCatItemsList=new ArrayList<>();
 
     ArrayAdapter<String> adapter6;
-    ArrayAdapter<String> adapter2;
+    ArrayAdapter<CharSequence> adapter2;
     ArrayAdapter<String> adapter3;
     ArrayAdapter<String> adapter4;
     ArrayAdapter<String> adapter5;
 
     public List cat = new ArrayList<>();
-    public List catItems = new ArrayList<>();
+    public List catItems = new ArrayList<String>();
+    public List addcat = new ArrayList<>();
+    public List addcatItems = new ArrayList<String>();
     public List currTask;
     String selected;
     public Catagory catagories = new Catagory();
@@ -54,15 +59,20 @@ public class DataParser  extends AsyncTask<Void,Void,Integer>{
     Spacecraft m = null;
     int spacecraftsLength;
 
-    public DataParser(Context c, ListView lv, String jsonData, Spinner dropdownList, String activityName, String downloadTaskName) {
+    public DataParser(Context c, ListView lv, String jsonData,  String activityName) {
         this.c = c;
         this.lv = lv;
         this.jsonData = jsonData;
-        this.dropdownList = dropdownList;
-        this.dropdown_cat = dropdownList;
-        this.dropdown_priority = dropdownList;
+
         this.activityName = activityName;
-        this.downloadTaskName = downloadTaskName;
+      //  this.downloadTaskName = downloadTaskName;
+
+     //   dropdown_status = spinners.getSpinner(dropdown_status);
+
+
+        //     this.dropdownList = dropdownList;
+    //    dropdown_cat = spinners.getSpinner(dropdown_cat);
+    //    dropdown_priority = spinners.getSpinner(dropdown_priority);
 
     }
 
@@ -78,6 +88,8 @@ public class DataParser  extends AsyncTask<Void,Void,Integer>{
 
     @Override
     protected Integer doInBackground(Void... params) {
+        Log.d("FileTag", " ");
+        Log.d("FileTag", "DataParser run");
         return this.parseData();
     }
 
@@ -87,111 +99,144 @@ public class DataParser  extends AsyncTask<Void,Void,Integer>{
 
 
 
+
         pd.dismiss();
-        if (activityName == "updateCatagoryList") {
-            cat.add(jsonData);
-           // Integer result == 1;
+        // if (activityName == "updateCatagoryList") {
+        //      cat.add(jsonData);
+        // Integer result == 1;
 
-        }
-        if(result==0)
-        {
+        //      }
+        if (result == 0) {
 
-            Toast.makeText(c,"Unable to parse",Toast.LENGTH_SHORT).show();
+            Toast.makeText(c, "Unable to parse", Toast.LENGTH_SHORT).show();
 
-        }else {
-
+        } else {
 
 
-            cat.add("All");
-            cat.addAll(catagories.getCatagoryList());
-         //   currTask = ;
+      //      cat.add("All");
+       //     catItems = catagories.getCatagoryList();
+            //      Log.d("FileTag", catagories.getdownloadTaskName(downloadTaskName));
+       //     cat.addAll(catItems);
+            //   currTask = ;
 
-            spacecraftsLength = spacecrafts.size();
+            //        String catItem = (String) cat.get(3);
 
+            //      String catsSize = String.valueOf(catagories.getSize());
+            //   Log.d("SizeOfList2", catsSize);
+            //   Log.d("Listitem", catItem);
 
+        //    spacecraftsLength = spacecrafts.size();
+          //  ArrayList<Spacecraft> spacecrafts2= parserMethod();
+           // finish();
+            return;
 
-            if (activityName == "viewTask") {
+       //     if (activityName == "viewTask") {
+                //   if(downloadTaskName == "DL_catagories") {
+              //  cat.add("All");
+            //    catItems = catagories.getCatagoryList();
+             //   Log.d("FileTag", catagories.getdownloadTaskName(downloadTaskName));
+            //    cat.addAll(catItems);
 
+          //      adapter2 = ArrayAdapter.createFromResource(c, R.array.planets_array, android.R.layout.simple_spinner_item);
+               // adapter2 = new ArrayAdapter<>(c, android.R.layout.simple_spinner_dropdown_item, cat);
 
+         //       dropdown_cat.setAdapter(adapter2);
 
+            //    CustomAdapter adapter3 = new CustomAdapter(c, spacecrafts);
+            //    lv.setAdapter(adapter3);
 
-                adapter2 = new ArrayAdapter<>(c, android.R.layout.simple_spinner_dropdown_item, cat);
-                dropdownList.setAdapter(adapter2);
-
-                dropdownList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                   @Override
-                   public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                       selectedItemText = (String) adapterView.getItemAtPosition(i);
-
-                    //   Toast.makeText(c, selectedItemText, Toast.LENGTH_SHORT).show();
-                       spacecraftsCat.clear();;
-                       if(selectedItemText != "All") {
-
-                           for (i = 0; i < spacecraftsLength; i++) {
-                               m = spacecrafts.get(i);
-                               if (m.getCatagory() == selectedItemText) {
-                                   spacecraftsCat.add(spacecrafts.get(i));
-
-                               }
-                           }
-
-                           int catGrpSize = spacecraftsCat.size();
-                           String abc = String.valueOf(catGrpSize);
-
-                           Toast.makeText(c, abc, Toast.LENGTH_SHORT).show();
-                           CustomAdapter adapter = new CustomAdapter(c, spacecraftsCat);
-                           lv.setAdapter(adapter);
+            //    DropdownAdapter DDadapter = new DropdownAdapter(c,lv,spacecrafts);
+           //     lv.setAdapter(DDadapter);
 
 
-                       }else{
-                           CustomAdapter adapter = new CustomAdapter(c, spacecrafts);
-                           lv.setAdapter(adapter);
-                       }
-                   }
+                //          Toast.makeText(c, selectedItemText, Toast.LENGTH_SHORT).show();
+           //     Toast.makeText(c, "Nothing Selected", Toast.LENGTH_SHORT).show();
+/*
+                dropdown_cat.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                        selectedItemText = (String) adapterView.getItemAtPosition(i);
+
+                        //   Toast.makeText(c, selectedItemText, Toast.LENGTH_SHORT).show();
+                        chosenCatItemsList.clear();
+                        ;
+                        if (selectedItemText != "All") {
+
+                            for (i = 0; i < spacecraftsLength; i++) {
+                                m = spacecrafts.get(i);
+                                if (m.getCatagory() == selectedItemText) {
+                                    chosenCatItemsList.add(spacecrafts.get(i));
+
+                                }
+                            }
+
+                            int catGrpSize = chosenCatItemsList.size();
+                            String abc = String.valueOf(catGrpSize);
+
+                            //     Toast.makeText(c, abc, Toast.LENGTH_SHORT).show();
+                            CustomAdapter adapter = new CustomAdapter(c, chosenCatItemsList);
+                            lv.setAdapter(adapter);
+
+
+                        } else {
+                            CustomAdapter adapter = new CustomAdapter(c, spacecrafts);
+                            lv.setAdapter(adapter);
+                        }
+                    }
 
                     @Override
                     public void onNothingSelected(AdapterView<?> arg0) {
                         CustomAdapter adapter3 = new CustomAdapter(c, spacecrafts);
                         lv.setAdapter(adapter3);
-                        Toast.makeText(c, selectedItemText, Toast.LENGTH_SHORT).show();
+                        //          Toast.makeText(c, selectedItemText, Toast.LENGTH_SHORT).show();
                         Toast.makeText(c, "Nothing Selected", Toast.LENGTH_SHORT).show();
                     }
-                });
-            }
-
+                });*/
+                //   }
+     //       }
+/*
             if (activityName == "addTask") {
 
 
                 //Display Tasks List
                 //CALL ADAPTER TO BIND DATA
-                CustomAdapter adapter = new CustomAdapter(c, spacecrafts);
-                lv.setAdapter(adapter);
+                //     CustomAdapter adapter = new CustomAdapter(c, spacecrafts);
+                //     lv.setAdapter(adapter);
+
+                addcat.add("All");
+                addcatItems = catagories.getCatagoryList();
+            //    Log.d("FileTag", catagories.getdownloadTaskName(downloadTaskName));
+                addcat.addAll(addcatItems);
+
+                //          Log.d("downloadTaskName", downloadTaskName);
 
                 //SELECT AND ADD CATAGORY
-                if(downloadTaskName == "DL_catagories") {
-                    adapter4 = new ArrayAdapter<>(c, android.R.layout.simple_spinner_dropdown_item, cat);
-                    dropdown_cat.setAdapter(adapter4);
-                    dropdown_cat.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                        @Override
-                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                            selectedItemText = (String) adapterView.getItemAtPosition(i);
-                            selectedCat = selectedItemText;
-                            Toast.makeText(c, selectedItemText, Toast.LENGTH_SHORT).show();
-                           // AddTaskActivity lol = new AddTaskActivity();
-                            Spacecraft lol = new Spacecraft();
-                            lol.setCatagory(selectedItemText);
-                            spacecrafts.set(5,lol);
-                        }
+                //    if(downloadTaskName == "DL_catagories") {
 
-                        @Override
-                        public void onNothingSelected(AdapterView<?> arg0) {
-                            Toast.makeText(c, "Nothing Selected", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                }
 
-                //SELECT AND ADD PRIORITY
-                if(downloadTaskName == "DL_priorities") {
+                adapter4 = new ArrayAdapter<>(c, android.R.layout.simple_spinner_dropdown_item, addcat);
+                dropdown_cat.setAdapter(adapter4);
+                dropdown_cat.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                        selectedItemText = (String) adapterView.getItemAtPosition(i);
+                        selectedCat = selectedItemText;
+                        Toast.makeText(c, selectedItemText, Toast.LENGTH_SHORT).show();
+                        // AddTaskActivity lol = new AddTaskActivity();
+                        Spacecraft lol = new Spacecraft();
+                        lol.setCatagory(selectedItemText);
+                        //  spacecrafts.set(5,lol);
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> arg0) {
+                        Toast.makeText(c, "Nothing Selected", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+
+            //SELECT AND ADD PRIORITY
+               if(downloadTaskName == "DL_priorities") {
                     String[] items2 = new String[]{"A", "B", "C"};
                     adapter5 = new ArrayAdapter<>(c, android.R.layout.simple_spinner_dropdown_item, items2);
                     dropdown_priority.setAdapter(adapter5);
@@ -213,11 +258,11 @@ public class DataParser  extends AsyncTask<Void,Void,Integer>{
                 }
 
                 //SELECT AND ADD STATUS
-                if(downloadTaskName == "DL_status") {
+               if(downloadTaskName == "DL_status") {
                     String[] items3 = new String[]{"Not Started", "In Progress", "Complete"};
                     adapter3 = new ArrayAdapter<>(c, android.R.layout.simple_spinner_dropdown_item, items3);
-                    dropdownList.setAdapter(adapter3);
-                    dropdownList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    dropdown_status.setAdapter(adapter3);
+                    dropdown_status.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
                         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                             selectedItemText = (String) adapterView.getItemAtPosition(i);
@@ -236,12 +281,9 @@ public class DataParser  extends AsyncTask<Void,Void,Integer>{
                             Toast.makeText(c, "Nothing Selected", Toast.LENGTH_SHORT).show();
                         }
                     });
-                }
+                }*/
 
-            }
         }
-
-
 
 
     }
@@ -249,14 +291,30 @@ public class DataParser  extends AsyncTask<Void,Void,Integer>{
 
 
 
+ //   }
+
+public ArrayList<Spacecraft> parserMethod(){
+   // ArrayList<Spacecraft> spacecrafts = new ArrayList<>();
+   //     ArrayList<Spacecraft> dataList = ArrayList<Spacecraft> spacecrafts;
+
+    //    return dataList;
+    return spacecrafts;
+}
+
+
     private int parseData()
     {
         try {
+         //   Log.d("FileTag", "ParseData() run using " + jsonData);
             JSONArray ja=new JSONArray(jsonData);
             JSONObject jo=null;
 
+
             spacecrafts.clear();
             Spacecraft s=null;
+
+         //   if (s.getSizeofList()>0){
+          //  s.clearCurrentList();}
 
             for(int i=0;i<ja.length();i++)
             {
@@ -277,19 +335,32 @@ public class DataParser  extends AsyncTask<Void,Void,Integer>{
 
                     s = new Spacecraft();
                     s.setId(id);
+               //     s.addIntToList(id);
                     s.setName(name);
+            //        s.addToList(name);
                     s.setPriority(priority);
+            //        s.addToList(priority);
                     s.setStatus(status);
+           //     s.addToList(status);
                     s.setDescription(description);
+       //        s.addToList(description);
                     s.setCatagory(catagory);
+        //        s.addToList(catagory);
                     s.setDeadline(deadline);
+       //         s.addToList(deadline);
                     s.setEst_time(est_time);
+       //         s.addToList(est_time);
                     s.setAct_time(actual_time);
+       //         s.addToList(actual_time);
+
+                Log.d("FileTag", "ParseData() set catagory is " + catagory);
+           //     if(downloadTaskName == "DL_catagories") {
 
 
-
-                catagories.setCatagory(catagory);
+                    catagories.setCatagory(catagory);
+           //     }
                 spacecrafts.add(s);
+              //  spacecrafts.getC
              //   currentTask.setCurrentTask(cu);
             }
 

@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     private Button btn_viewTask;
     private Button btn_addTask;
     TextView textView;
-
+    ListView lv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
        // textView = (TextView) findViewById(R.id.textView);
         //textView.setVisibility(View.VISIBLE);
 
-        final ListView lv= (ListView) findViewById(R.id.lv);
+        lv= (ListView) findViewById(R.id.lv);
 
         btn_addTask = (Button) findViewById(R.id.btn_addTasks);
         btn_addTask.setOnClickListener(new View.OnClickListener() {
@@ -90,7 +90,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void openViewTasksActivity(){
-        Intent intent = new Intent(this, TasksViewActivity.class);
+        Intent intent = new Intent(this, ViewTasksActivity.class);
+
         startActivity(intent);
     }
 

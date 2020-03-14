@@ -17,21 +17,24 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.Inflater;
 
-public class CustomAdapter extends BaseAdapter {
+public class ViewTaskAdapter  extends BaseAdapter{
+
 
     Context c;
     ArrayList<Spacecraft> spacecrafts;
     LayoutInflater inflater;
     public static String cat;
-  //  public ArrayList<String> catagories;
-   // public List<String> catagories = new ArrayList<String>();
-   // public List<String> catStore = new CatagoriesList()
+    //  public ArrayList<String> catagories;
+    // public List<String> catagories = new ArrayList<String>();
+    // public List<String> catStore = new CatagoriesList()
 
     public String selectedCatagory;
     public String selectedPriority;
     public String selectedStatus;
+    Catagory catags = new Catagory();
+    public List catList = new ArrayList<>();
 
-    public CustomAdapter(Context c, ArrayList<Spacecraft> spacecrafts) {
+    public ViewTaskAdapter(Context c, ArrayList<Spacecraft> spacecrafts) {
         this.c = c;
         this.spacecrafts = spacecrafts;
 
@@ -76,7 +79,7 @@ public class CustomAdapter extends BaseAdapter {
         }
 
 
-        Log.d("FileTag", "CustomAdapter called");
+        Log.d("FileTag", "VIEWtASKAdapter called");
 
         TextView nameTxt= (TextView) convertView.findViewById(R.id.nameTxt);
         TextView priorityTxt= (TextView) convertView.findViewById(R.id.priorityTxt);
@@ -99,8 +102,7 @@ public class CustomAdapter extends BaseAdapter {
         actualTimeTxt.setText(spacecrafts.get(position).getAct_time());
 
 
-
-      //  Catagory.add
+        //  Catagory.add
 
         //CatagoriesList catString = new CatagoriesList(cat);
 
@@ -117,12 +119,12 @@ public class CustomAdapter extends BaseAdapter {
 
         return convertView;
     }
-  //  public  void  GetCatagories(String cat){
+    //  public  void  GetCatagories(String cat){
 
-  //      String addCat = cat;
-  //      catagories.set(0, addCat);
+    //      String addCat = cat;
+    //      catagories.set(0, addCat);
 
-  //  }
+    //  }
 
     static String getCat()
     {

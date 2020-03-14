@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.io.BufferedInputStream;
@@ -14,26 +15,28 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 
-import android.widget.Spinner;
+public class ViewTaskDownloader extends AsyncTask<Void,Void,String> {
 
-public class Downloader extends AsyncTask<Void,Void,String> {
+
 
     Context c;
     String urlAddress;
     ListView lv;
-    Spinner dropdownList;
-    String activityName;
-    String downloadTaskName;
+    private Boolean EndOfList = false;
+    private String ListEnd = "More Values";
+    Spinner dropdown_cat;
+
 
     ProgressDialog pd;
 
-    public Downloader(Context c, String urlAddress, ListView lv, String activityName) {
+    public ViewTaskDownloader(Context c, ListView lv, String urlAddress, Spinner dropdown_cat) {
+
         this.c = c;
-        this.urlAddress = urlAddress;
         this.lv = lv;
-    //    this.dropdownList = dropdownList;
-        this.activityName = activityName;
-      //  this.downloadTaskName = downloadTaskName;
+        this.urlAddress = urlAddress;
+        this.dropdown_cat = dropdown_cat;
+
+        //  this.downloadTaskName = downloadTaskName;
     }
 
     @Override
@@ -49,8 +52,8 @@ public class Downloader extends AsyncTask<Void,Void,String> {
     @Override
     protected String doInBackground(Void... params) {
 
-        Log.d("FileTag", " ");
-        Log.d("FileTag", "Downloader Run by" + downloadTaskName);
+       // Log.d("FileTag", " ");
+     //   Log.d("FileTag", "Downloader Run by" + downloadTaskName);
         return this.downloadData();
     }
 
@@ -62,12 +65,15 @@ public class Downloader extends AsyncTask<Void,Void,String> {
 
         if(s==null)
         {
+      //      Log.d("FileTag", "All Tasks Read ");
             Toast.makeText(c,"Unsuccessfull,Null returned",Toast.LENGTH_SHORT).show();
         }else
         {
+            Log.d("FileTag", "ListStatus" + ListEnd);
+
             //CALL DATA PARSER TO PARSE
-            DataParser parser=new DataParser(c,lv,s, activityName);
-            parser.execute();
+            ViewTasksParser parser2=new ViewTasksParser(c,lv,s, EndOfList, dropdown_cat);
+            parser2.execute();
 
         }
 
@@ -101,9 +107,11 @@ public class Downloader extends AsyncTask<Void,Void,String> {
 
             }else
             {
+
                 return null;
             }
-
+            EndOfList = true;
+            ListEnd = "End of List";
             return response.toString();
 
         } catch (IOException e) {

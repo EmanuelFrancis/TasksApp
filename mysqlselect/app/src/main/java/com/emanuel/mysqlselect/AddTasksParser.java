@@ -114,8 +114,9 @@ public class AddTasksParser extends AsyncTask<Void,Void,Integer> {
         if (result == 0) {
             Log.d("FileTag", "Unable to parse");
             Toast.makeText(c, "Unable to parse", Toast.LENGTH_SHORT).show();
+            addCatToList();
 
-        } else {
+        }
 
             catList.clear();
 
@@ -165,83 +166,11 @@ public class AddTasksParser extends AsyncTask<Void,Void,Integer> {
             });
 
 */
-            String[] items2 = new String[]{"A", "B", "C"};
-            priorityDropdownAdapter = new ArrayAdapter<>(c, android.R.layout.simple_spinner_dropdown_item, items2);
-            dropdown_priority= (Spinner) ((AddTaskActivity)c).findViewById(R.id.drp_select_prior);
-            dropdown_priority.setAdapter(priorityDropdownAdapter);
-            dropdown_priority.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                    selectedPriorityText = (String) adapterView.getItemAtPosition(i);
 
-                }
+            drawPriorityDropdown();
+drawStatusDropdown();
 
-                @Override
-                public void onNothingSelected(AdapterView<?> arg0) {
-                    Toast.makeText(c, "Nothing Selected", Toast.LENGTH_SHORT).show();
-                }
-            });
-
-            String[] statusChoices = new String[]{"Not Started", "In Progress", "On Hold", "Complete"};
-            statusDropdownAdapter = new ArrayAdapter<>(c, android.R.layout.simple_spinner_dropdown_item, statusChoices);
-            dropdown_status= (Spinner) ((AddTaskActivity)c).findViewById(R.id.drp_select_status);
-            dropdown_status.setAdapter(statusDropdownAdapter);
-            dropdown_status.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                    selectedStatusText = (String) adapterView.getItemAtPosition(i);
-
-                }
-
-                @Override
-                public void onNothingSelected(AdapterView<?> arg0) {
-                    Toast.makeText(c, "Nothing Selected", Toast.LENGTH_SHORT).show();
-                }
-            });
-
-
-
-            add_new_catagory = ((AddTaskActivity)c).findViewById(R.id.btn_add_cat);
-            add_new_catagory.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                    AlertDialog.Builder builder = new AlertDialog.Builder(c);
-                    builder.setTitle("Title");
-
-
-// Set up the input
-                    final EditText input = new EditText(c);
-// Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
-                    input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                    builder.setView(input);
-
-                    // Set up the buttons
-                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            String addedCat = input.getText().toString();
-                            catList.clear();
-                            catList.add(addedCat);
-                            drawCatDropdown();
-
-
-                          //  activityName = "updateCatagoryList";
-                        //    DataUpdater updater=new DataUpdater(AddTaskActivity.this,lv,m_Text, dropdown_cat, activityName, downloadTaskName);
-                       //     updater.execute();
-                        }
-                    });
-
-
-                    builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.cancel();
-                        }
-                    });
-                    builder.show();
-                }
-            });
+            addCatagory();
 
 
             final TextView nameTxt= (TextView) ((AddTaskActivity)c).findViewById(R.id.et_task_name);
@@ -254,7 +183,7 @@ public class AddTasksParser extends AsyncTask<Void,Void,Integer> {
             submit_task.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    task = nameTxt.toString();
+                    task = nameTxt.getText().toString();
                     task_desc = descTxt.getText().toString();//Task_Desc.getText().toString();
                     priority = selectedPriorityText;//dropdown_priority.getSelectedItem().toString();
                     status = selectedStatusText;
@@ -270,7 +199,7 @@ public class AddTasksParser extends AsyncTask<Void,Void,Integer> {
                 }
             });
 
-        }
+
 
     }
     class BackgroundTask extends AsyncTask<String,Void,String>
@@ -396,32 +325,14 @@ public class AddTasksParser extends AsyncTask<Void,Void,Integer> {
 
                 return  "One Row of data inserted";
 
-
-
-
-
-
-
-
-
             }catch (MalformedURLException e)
-
             {
-
                 e.printStackTrace();
-
             } catch (IOException e) {
-
                 e.printStackTrace();
-
             }
 
-
-
-
-
             return "Issue";
-
         }
 
 
@@ -556,5 +467,94 @@ public class AddTasksParser extends AsyncTask<Void,Void,Integer> {
                 Toast.makeText(c, "Nothing Selected", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    void drawStatusDropdown(){
+
+
+        String[] statusChoices = new String[]{"Not Started", "In Progress", "On Hold", "Complete"};
+        statusDropdownAdapter = new ArrayAdapter<>(c, android.R.layout.simple_spinner_dropdown_item, statusChoices);
+        dropdown_status= (Spinner) ((AddTaskActivity)c).findViewById(R.id.drp_select_status);
+        dropdown_status.setAdapter(statusDropdownAdapter);
+        dropdown_status.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                selectedStatusText = (String) adapterView.getItemAtPosition(i);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+                Toast.makeText(c, "Nothing Selected", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    void drawPriorityDropdown(){
+        String[] items2 = new String[]{"A", "B", "C"};
+        priorityDropdownAdapter = new ArrayAdapter<>(c, android.R.layout.simple_spinner_dropdown_item, items2);
+        dropdown_priority= (Spinner) ((AddTaskActivity)c).findViewById(R.id.drp_select_prior);
+        dropdown_priority.setAdapter(priorityDropdownAdapter);
+        dropdown_priority.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                selectedPriorityText = (String) adapterView.getItemAtPosition(i);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+                Toast.makeText(c, "Nothing Selected", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    void addCatagory(){
+
+        add_new_catagory = ((AddTaskActivity)c).findViewById(R.id.btn_add_cat);
+        add_new_catagory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+addCatToList();
+            }
+        });
+    }
+
+    void addCatToList(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(c);
+        builder.setTitle("Title");
+
+
+// Set up the input
+        final EditText input = new EditText(c);
+// Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+        input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        builder.setView(input);
+
+        // Set up the buttons
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String addedCat = input.getText().toString();
+                catList.clear();
+                catList.add(addedCat);
+                drawCatDropdown();
+
+
+                //  activityName = "updateCatagoryList";
+                //    DataUpdater updater=new DataUpdater(AddTaskActivity.this,lv,m_Text, dropdown_cat, activityName, downloadTaskName);
+                //     updater.execute();
+            }
+        });
+
+
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        builder.show();
     }
 }

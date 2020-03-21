@@ -40,25 +40,25 @@ public class DropdownAdapter extends BaseAdapter {
     LayoutInflater inflater;
     public static String cat;
     ArrayList<Spacecraft> taskList;
-    public ArrayList<String> catList = new ArrayList<>();
+    ArrayList<String> catList = new ArrayList<>();
     ArrayAdapter<String> adapter;
-    public String selectedItemText;
+    String selectedItemText;
     int spacecraftsLength;
     ListView lv;
     Catagory catags = new Catagory();
     Spinner dropdown_cat;
 
-   // Spacecraft m = null;
+    Spacecraft m = null;
     ArrayList<Spacecraft> spacecrafts;
     ArrayList<Spacecraft> chosenCatItemsList=new ArrayList<>();
 
     public List<String> listItems = new ArrayList<String>();
     public ArrayList addcat = new ArrayList<>();
 
-   public ArrayList<String> catItems = new ArrayList<String>();
+    ArrayList<String> catItems = new ArrayList<String>();
 
 
-    public DropdownAdapter(Context c, ListView lv, ArrayList<Spacecraft> spacecrafts, ArrayList<String> catItems, Spinner dropdown_cat) {
+    public DropdownAdapter(Context c, ListView lv, ArrayList<Spacecraft> spacecrafts, Spinner dropdown_cat) {
 
 
 
@@ -75,7 +75,7 @@ public class DropdownAdapter extends BaseAdapter {
 
     //    setContentView(R.layout.activity_tasks_view);
 
-
+        Log.d("FileTag", "DropdownAdapter called");
 
     }
 
@@ -110,13 +110,9 @@ public class DropdownAdapter extends BaseAdapter {
         }
 //
    //     String strIT = String.valueOf(catItems.size());
-catList.clear();
-        Log.d("FileTag", "DropdownAdapter called");
+        catList.clear();
+        Log.d("FileTag", "DropdownAdapter GETVIEW called");
 
-//        Log.d("FileTag", "SIZE OF CATLIST" + strIT);
-
-        //    String catName = spacecrafts.get(0).getCatagory();
-        //     Log.d("FileTag", "spacecrafts.get(0)" + catName);
 
         for (int i = 0; i < getCount(); i++) {
             Boolean duplicates;
@@ -124,16 +120,16 @@ catList.clear();
          //   addcat.addAll(catItems);
             if (catItems.size() == 0) {
                 Log.d("FileTag", "Test1");
-                this.catItems.add("Show All");
+                catItems.add("Show All");
+            }else {
+
+                duplicates = countDups(catName, catItems);
+                if (!duplicates) {
+                    Log.d("FileTag", "Test2");
+                    catItems.add(catName);
+
+                }
             }
-
-            duplicates = countDups(catName, catItems);
-            if (!duplicates) {
-                Log.d("FileTag", "Test2");
-                this.catItems.add(catName);
-
-            }
-
         }
 
 
@@ -147,59 +143,36 @@ catList.clear();
 //catList.addAll(test);
 
         adapter = new ArrayAdapter<String>(c, android.R.layout.simple_spinner_dropdown_item, catList);
-        dropdown_cat.setAdapter(null);
+        dropdown_cat=(Spinner) ((ViewTasksActivity)c).findViewById(R.id.drp_view_cat);
         dropdown_cat.setAdapter(adapter);
         dropdown_cat.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 selectedItemText = (String) adapterView.getItemAtPosition(i);
                 chosenCatItemsList.clear();
-                if (selectedItemText != "Show All") {
-                for(int x=i;x<getCount();x++){
-                    Spacecraft m = new Spacecraft();
+                if (!selectedItemText.equals("Show All") ) {
+                for(int x=0;x<getCount();x++){
+                    m = new Spacecraft();
                     m = spacecrafts.get(x);
                     String b = m.getCatagory();
                     if(selectedItemText.equals(b)){
                         chosenCatItemsList.add(m);
                     }
                 }
+                    Toast.makeText(c, "chosenCat", Toast.LENGTH_SHORT).show();
                     ViewTaskAdapter adapter = new ViewTaskAdapter(c, chosenCatItemsList);
                     lv.setAdapter(adapter);
+
+                    int chosenSize = chosenCatItemsList.size();
+                    String chosen = String.valueOf(chosenSize);
+                    Toast.makeText(c, chosen, Toast.LENGTH_SHORT).show();
                 }else {
                         ViewTaskAdapter adapter = new ViewTaskAdapter(c, spacecrafts);
                         lv.setAdapter(adapter);
-                    Toast.makeText(c, "abc", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(c, "show all", Toast.LENGTH_SHORT).show();
                 }
 
-             //   Toast.makeText(c, selectedItemText, Toast.LENGTH_SHORT).show();
-             //   chosenCatItemsList.clear();
-             //   Spacecraft m = new Spacecraft();
-            //    String strI = String.valueOf(getCount());
-            //    String strIg = String.valueOf(i);
-   /*             if (selectedItemText != "Show All") {
 
-                    for (int x = 0; x < getCount(); x++) {
-                        Log.d("FileTag", "get count val " + strIg);
-                        m = spacecrafts.get(x);
-                        String b = m.getCatagory();
-                        if (b == selectedItemText) {
-                            chosenCatItemsList.add(m);
-                            Log.d("FileTag", "selectedItemText " + selectedItemText);
-                            //  int catGrpSize = chosenCatItemsList.size();
-                            //    String abc = String.valueOf(catGrpSize);
-
-                            //     Toast.makeText(c, abc, Toast.LENGTH_SHORT).show();
-
-                        }
-                    }
-                    ViewTaskAdapter adapter = new ViewTaskAdapter(c, chosenCatItemsList);
-                    lv.setAdapter(adapter);
-
-                } else {
-                //    ViewTaskAdapter adapter2 = new ViewTaskAdapter(c, spacecrafts);
-                //    lv.setAdapter(adapter2);
-                    Toast.makeText(c, "abc", Toast.LENGTH_SHORT).show();
-                }*/
 
 
                 Toast.makeText(c, "abc", Toast.LENGTH_SHORT).show();
@@ -210,9 +183,9 @@ catList.clear();
                 //      CustomAdapter adapter3 = new CustomAdapter(c, spacecrafts);
              //   lv.setAdapter(adapter);
                 //          Toast.makeText(c, selectedItemText, Toast.LENGTH_SHORT).show();
-                selectedItemText = "Show All";
-                ViewTaskAdapter adapter = new ViewTaskAdapter(c, spacecrafts);
-                lv.setAdapter(adapter);
+           //     selectedItemText = "Show All";
+         //       ViewTaskAdapter adapter = new ViewTaskAdapter(c, spacecrafts);
+               // lv.setAdapter(adapter);
                 Toast.makeText(c, "Nothing Selected", Toast.LENGTH_SHORT).show();
             }
         });
@@ -242,7 +215,7 @@ catList.clear();
         ArrayList<String> list;
         // String catag="";
         Boolean duplicate = false;
-        this.cat = catag;
+        String cat = catag;
         list = catList;
      //   this.catList=catList;
         String listCat = "null";

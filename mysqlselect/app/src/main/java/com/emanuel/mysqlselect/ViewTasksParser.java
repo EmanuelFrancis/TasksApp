@@ -34,7 +34,7 @@ public class ViewTasksParser  extends AsyncTask<Void,Void,Integer> {
     public Catagory catagories = new Catagory();
     String activityName;
     String downloadTaskName;
-     ArrayList<String> catItems = new ArrayList<String>();
+   //  ArrayList<String> catItems = new ArrayList<String>();
 
     private Boolean EndOfList = false;
 
@@ -83,9 +83,9 @@ public class ViewTasksParser  extends AsyncTask<Void,Void,Integer> {
             ViewTaskAdapter adapter = new ViewTaskAdapter(c, spacecrafts);
             lv.setAdapter(adapter);
 
-            if(EndOfList == true){
+            if(EndOfList){
 
-                DropdownAdapter DDadapter = new DropdownAdapter(c, lv, spacecrafts, catItems, dropdown_cat);
+                DropdownAdapter DDadapter = new DropdownAdapter(c, lv, spacecrafts, dropdown_cat);
                 lv.setAdapter(DDadapter);
             }
 

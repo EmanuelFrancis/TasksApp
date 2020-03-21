@@ -5,17 +5,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.os.Bundle;
 
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.zip.Inflater;
 
 public class ViewTaskAdapter  extends BaseAdapter{
 
@@ -24,15 +19,7 @@ public class ViewTaskAdapter  extends BaseAdapter{
     ArrayList<Spacecraft> spacecrafts;
     LayoutInflater inflater;
     public static String cat;
-    //  public ArrayList<String> catagories;
-    // public List<String> catagories = new ArrayList<String>();
-    // public List<String> catStore = new CatagoriesList()
 
-    public String selectedCatagory;
-    public String selectedPriority;
-    public String selectedStatus;
-    Catagory catags = new Catagory();
-    public List catList = new ArrayList<>();
 
     public ViewTaskAdapter(Context c, ArrayList<Spacecraft> spacecrafts) {
         this.c = c;
@@ -102,13 +89,6 @@ public class ViewTaskAdapter  extends BaseAdapter{
         actualTimeTxt.setText(spacecrafts.get(position).getAct_time());
 
 
-        //  Catagory.add
-
-        //CatagoriesList catString = new CatagoriesList(cat);
-
-
-
-
         //ITEM CLICKS
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,36 +99,12 @@ public class ViewTaskAdapter  extends BaseAdapter{
 
         return convertView;
     }
-    //  public  void  GetCatagories(String cat){
-
-    //      String addCat = cat;
-    //      catagories.set(0, addCat);
-
-    //  }
 
     static String getCat()
     {
-        //String cat;
         return cat;
     }
 
-    public Void setCatagory(String catag) {
-        //catagories = new ArrayList<String>();
-        selectedCatagory = catag;
-        return null;
-    }
-
-    public Void setPriority(String prior) {
-        //catagories = new ArrayList<String>();
-        selectedPriority = prior;
-        return null;
-    }
-
-    public Void setStatus(String status) {
-        //catagories = new ArrayList<String>();
-        selectedStatus = status;
-        return null;
-    }
 
 
 }

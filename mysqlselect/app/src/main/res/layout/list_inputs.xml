@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+    android:orientation="horizontal"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    >
+
+
+
+
+        <TextView
+            android:id="@+id/title_add_task_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add New Task"
+            android:layout_marginTop="10dp"
+            android:layout_centerHorizontal="true"
+            />
+
+        <Button
+            android:id="@+id/btn_add_cat"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:text="Add New Catagory"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:layout_below="@id/title_add_task_name"/>
+
+
+        <Spinner
+            android:id="@+id/drp_select_cat"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:text="Select A Catagory"
+            android:background="@drawable/spinner_bg"
+            android:spinnerMode="dropdown"
+            android:layout_below="@id/btn_add_cat"
+            android:layout_marginTop="10dp"
+            android:layout_centerHorizontal="true"
+            android:stateListAnimator="@drawable/spinner_sla"
+            android:dropDownVerticalOffset="?attr/dropdownListPreferredItemHeight"
+            android:paddingRight="14dp"
+            android:popupElevation="3dp"
+            android:color="#000000"
+            />
+
+
+
+        <EditText
+            android:id="@+id/et_task_name"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:hint="Enter Task Name"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/drp_select_cat"
+            android:layout_marginTop="30dp"
+
+            />
+
+        <EditText
+            android:id="@+id/et_task_notes"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:hint="Enter Task Notes"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/et_task_name"
+            android:layout_marginTop="30dp"
+
+            />
+
+        <Spinner
+            android:id="@+id/drp_select_prior"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:text="Select A Priority"
+            android:background="@drawable/spinner_bg"
+            android:spinnerMode="dropdown"
+            android:layout_below="@id/et_task_notes"
+            android:layout_marginTop="10dp"
+            android:layout_centerHorizontal="true"
+            android:stateListAnimator="@drawable/spinner_sla"
+            android:dropDownVerticalOffset="?attr/dropdownListPreferredItemHeight"
+            android:paddingRight="14dp"
+            android:popupElevation="3dp"
+            android:color="#000000"
+            />
+
+
+        <Spinner
+            android:id="@+id/drp_select_status"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:text="Select A Priority"
+            android:background="@drawable/spinner_bg"
+            android:spinnerMode="dropdown"
+            android:layout_below="@id/drp_select_prior"
+            android:layout_marginTop="10dp"
+            android:layout_centerHorizontal="true"
+            android:stateListAnimator="@drawable/spinner_sla"
+            android:dropDownVerticalOffset="?attr/dropdownListPreferredItemHeight"
+            android:paddingRight="14dp"
+            android:popupElevation="3dp"
+            android:color="#000000"
+            />
+
+        <EditText
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:hint="Enter Deadline"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/drp_select_status"
+            android:layout_marginTop="30dp"
+            android:id="@+id/et_deadline"
+            />
+
+        <EditText
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:hint="Enter Time Required"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/et_deadline"
+            android:layout_marginTop="30dp"
+            android:id="@+id/et_est_time"
+            />
+
+        <EditText
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:hint="Enter Time Taken"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/et_est_time"
+            android:layout_marginTop="30dp"
+            android:id="@+id/et_act_time"
+            />
+
+        <Button
+            android:id="@+id/btn_sub_task"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add New Task"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:layout_below="@id/et_act_time"
+
+            />
+
+
+
+    </RelativeLayout>

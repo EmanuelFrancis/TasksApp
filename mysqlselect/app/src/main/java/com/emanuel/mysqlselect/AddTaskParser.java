@@ -1,23 +1,30 @@
 package com.emanuel.mysqlselect;
 
-        import android.app.ProgressDialog;
-        import android.content.Context;
-        import android.os.AsyncTask;
-        import android.util.Log;
-        import android.widget.ListView;
-        import android.widget.Spinner;
-        import android.widget.Toast;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.os.AsyncTask;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.ListView;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.AdapterView;
+import android.widget.AdapterView;
+import android.widget.BaseAdapter;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-        import org.json.JSONArray;
-        import org.json.JSONException;
-        import org.json.JSONObject;
+import java.util.ArrayList;
+import java.util.List;
 
-        import java.util.ArrayList;
-        import java.util.List;
-
-
-
-public class ViewTasksParser  extends AsyncTask<Void,Void,Integer> {
+public class AddTaskParser extends AsyncTask<Void,Void,Integer> {
 
     Context c;
     ListView lv;
@@ -34,15 +41,21 @@ public class ViewTasksParser  extends AsyncTask<Void,Void,Integer> {
     public Catagory catagories = new Catagory();
     String activityName;
     String downloadTaskName;
-     ArrayList<String> catItems = new ArrayList<String>();
+    ArrayList<String> catItems = new ArrayList<String>();
+    public String selectedCatText;
+    String selectedItemText;
+    LayoutInflater inflater;
+    ArrayAdapter<String> adapter2;
+
+
+
+
+
+
 
     private Boolean EndOfList = false;
 
-
-
-
-    public ViewTasksParser(Context c, ListView lv,  String jsonData, Boolean EndOfList, Spinner dropdown_cat ) {
-
+    public AddTaskParser(Context c, ListView lv, String jsonData, Boolean EndOfList, Spinner dropdown_cat ) {
         this.c = c;
         this.lv = lv;
         this.jsonData = jsonData;
@@ -67,6 +80,8 @@ public class ViewTasksParser  extends AsyncTask<Void,Void,Integer> {
         return this.parseData();
     }
 
+
+
     @Override
     protected void onPostExecute (Integer result) {
         super.onPostExecute(result);
@@ -79,19 +94,10 @@ public class ViewTasksParser  extends AsyncTask<Void,Void,Integer> {
         } else {
 
 
+                  AddTaskAdapter DDadapter = new AddTaskAdapter(c, lv, spacecrafts);
+                   lv.setAdapter(DDadapter);
 
-            ViewTaskAdapter adapter = new ViewTaskAdapter(c, spacecrafts);
-            lv.setAdapter(adapter);
-
-            if(EndOfList == true){
-
-                DropdownAdapter DDadapter = new DropdownAdapter(c, lv, spacecrafts, catItems, dropdown_cat);
-                lv.setAdapter(DDadapter);
-            }
-
-        }
-
-    }
+        }}
 
 
 
@@ -144,4 +150,12 @@ public class ViewTasksParser  extends AsyncTask<Void,Void,Integer> {
 
         return 0;
     }
+
+    public String selectedCatagory(String selCat){
+        String cat = selCat;
+
+        return cat;
+    }
+
+
 }

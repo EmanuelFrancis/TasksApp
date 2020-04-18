@@ -57,6 +57,10 @@ public class DropdownAdapter extends BaseAdapter {
 
     ArrayList<String> catItems = new ArrayList<String>();
 
+    Globals selectedCat;
+    int spinnerPos = 0;
+    int spinnerSize;
+
 
     public DropdownAdapter(Context c, ListView lv, ArrayList<Spacecraft> spacecrafts, Spinner dropdown_cat) {
 
@@ -75,7 +79,7 @@ public class DropdownAdapter extends BaseAdapter {
 
     //    setContentView(R.layout.activity_tasks_view);
 
-        Log.d("FileTag", "DropdownAdapter called");
+        Log.d("FileTag", "DROPDOWNADAPTER CALLED");
 
     }
 
@@ -111,7 +115,13 @@ public class DropdownAdapter extends BaseAdapter {
 //
    //     String strIT = String.valueOf(catItems.size());
         catList.clear();
-        Log.d("FileTag", "DropdownAdapter GETVIEW called");
+        Log.d("FileTag", "DROPDOWNADAPTER GETVIEW CALLED");
+
+        selectedCat = new Globals(c);
+        selectedItemText = (String) selectedCat.getSelectedDropdownItem();
+
+        Log.d("FileTag", "selectedItemText is " + selectedItemText);
+        Log.d("FileTag", "selectedItemText is " + selectedCat.getSelectedDropdownItem());
 
 
         for (int i = 0; i < getCount(); i++) {
@@ -145,6 +155,11 @@ public class DropdownAdapter extends BaseAdapter {
         adapter = new ArrayAdapter<String>(c, android.R.layout.simple_spinner_dropdown_item, catList);
         dropdown_cat=(Spinner) ((ViewTasksActivity)c).findViewById(R.id.drp_view_cat);
         dropdown_cat.setAdapter(adapter);
+       spinnerPos = setSpinner(dropdown_cat, selectedItemText);
+          Log.d("FileTag", "Spinner pos is " + spinnerPos);
+      //  spinnerSize = selectedCat.countSpinnerItems(dropdown_cat);
+      //  Log.d("FileTag", "Spinner size is " + spinnerSize);
+        dropdown_cat.setSelection(spinnerPos,true);
         dropdown_cat.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -231,6 +246,28 @@ public class DropdownAdapter extends BaseAdapter {
         }
         // counter=0;
         return duplicate ;
+    }
+
+    private int setSpinner(Spinner spinner, String cat){
+
+        int listPos=0;
+        Spinner spin = spinner;
+        String inputCat = cat;
+        String compareCat;
+
+        int spinnerSize = spin.getAdapter().getCount();
+
+        for (int x=0; x<spinnerSize;x++){
+            spin.setSelection(x,false);
+           compareCat = spin.getSelectedItem().toString();
+
+           if(inputCat.equals(compareCat)){
+               listPos = x;
+           }
+        }
+
+
+        return listPos;
     }
 
 

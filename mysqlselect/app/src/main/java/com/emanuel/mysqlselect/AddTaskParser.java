@@ -62,6 +62,7 @@ public class AddTaskParser extends AsyncTask<Void,Void,Integer> {
         this.EndOfList = EndOfList;
         this.dropdown_cat = dropdown_cat;
 
+        Log.d("FileTag", "ADDTASKPARSER CALLED");
 
     }
 

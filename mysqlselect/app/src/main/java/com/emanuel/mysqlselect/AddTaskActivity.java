@@ -63,6 +63,9 @@ public class AddTaskActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Log.d("FileTag", "ADDTASKACTIVITY CALLED");
+
         setContentView(R.layout.activity_add_task);
 
       //  final ListView lv= (ListView) findViewById(R.id.lv);

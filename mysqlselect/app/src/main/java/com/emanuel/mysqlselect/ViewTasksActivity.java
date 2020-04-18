@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.util.Log;
 import android.widget.ListView;
 import android.widget.Spinner;
 
@@ -25,7 +26,7 @@ public class ViewTasksActivity extends AppCompatActivity {
     //    Toolbar toolbar = findViewById(R.id.toolbar);
     //    setSupportActionBar(toolbar);
 
-
+        Log.d("FileTag", "VIEWTASKSACTIVITY CALLED");
         final ListView lv = (ListView) findViewById(R.id.lv);
 
 

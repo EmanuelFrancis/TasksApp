@@ -75,7 +75,7 @@ public class AddTasksParser extends AsyncTask<Void,Void,Integer> {
     ArrayAdapter<String> priorityDropdownAdapter;
     ArrayAdapter<String> statusDropdownAdapter;
 
-
+    Globals methods;
 
     ArrayAdapter<String> adapter2;
 
@@ -87,7 +87,7 @@ public class AddTasksParser extends AsyncTask<Void,Void,Integer> {
         this.jsonData = jsonData;
         this.EndOfList = EndOfList;
         //this.dropdown_cat = dropdown_cat;
-
+        Log.d("FileTag", "ADDTASKSPARSER CALLED");
 
     }
 
@@ -352,6 +352,11 @@ drawStatusDropdown();
         protected void onPostExecute(String result){
 
             Toast.makeText(c,result,Toast.LENGTH_LONG).show();
+            methods = new Globals(c);
+            methods.setSelectedDropdownItem("Personal");
+          //  String test = methods.getSelectedDropdownItem();
+            Log.d("FileTag", "SETselectedDropdownItem is " + methods.getSelectedDropdownItem() );
+            methods.openViewTasksActivity(catagory);
 
         }
 
@@ -529,7 +534,7 @@ addCatToList();
 // Set up the input
         final EditText input = new EditText(c);
 // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
-        input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        input.setInputType(InputType.TYPE_CLASS_TEXT );
         builder.setView(input);
 
         // Set up the buttons

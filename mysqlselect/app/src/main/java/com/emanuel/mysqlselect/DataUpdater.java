@@ -65,6 +65,8 @@ public class DataUpdater  extends AsyncTask<Void,Void,Integer>{
         this.activityName = activityName;
         this.downloadTaskName = downloadTaskName;
 
+        Log.d("FileTag", "DATAUPDATE CALLED");
+
     }
 
     @Override

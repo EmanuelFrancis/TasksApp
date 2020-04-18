@@ -11,6 +11,7 @@ import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,6 +27,10 @@ public class MainActivity extends AppCompatActivity {
     private Button btn_addTask;
     TextView textView;
     ListView lv;
+
+    Globals methods;
+    String catagory = "Show All";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,8 +38,12 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        Log.d("FileTag", "MAINACTIVITY CALLED");
        // textView = (TextView) findViewById(R.id.textView);
         //textView.setVisibility(View.VISIBLE);
+
+        methods = new Globals(this);
+
 
         lv= (ListView) findViewById(R.id.lv);
 
@@ -42,16 +51,20 @@ public class MainActivity extends AppCompatActivity {
         btn_addTask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openAddTaskActivity();
+                methods.openAddTaskActivity(catagory);
             }
         });
 
         btn_viewTask = (Button) findViewById(R.id.btn_viewTasks);
         btn_viewTask.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                openViewTasksActivity();
-            }
+           //public void onClick(View view) {
+         //       openViewTasksActivity();
+         //   }
+        public void onClick(View view) {
+                methods.setSelectedDropdownItem(catagory);
+                methods.openViewTasksActivity(catagory);
+        }
         });
 
         textView = (TextView) findViewById(R.id.textView);

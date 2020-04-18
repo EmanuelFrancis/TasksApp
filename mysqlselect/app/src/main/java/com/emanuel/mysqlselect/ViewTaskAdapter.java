@@ -66,7 +66,7 @@ public class ViewTaskAdapter  extends BaseAdapter{
         }
 
 
-        Log.d("FileTag", "VIEWtASKAdapter called");
+        Log.d("FileTag", "VIEWTASKADAPTER CALLED");
 
         TextView nameTxt= (TextView) convertView.findViewById(R.id.nameTxt);
         TextView priorityTxt= (TextView) convertView.findViewById(R.id.priorityTxt);

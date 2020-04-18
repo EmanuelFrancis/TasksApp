@@ -37,6 +37,8 @@ public class AddTasksDownloader extends AsyncTask<Void,Void,String> {
       //  this.dropdown_cat = dropdown_cat;
 
         //  this.downloadTaskName = downloadTaskName;
+
+        Log.d("FileTag", "ADDTASKSDOWNLOADER CALLED");
     }
 
     @Override

@@ -34,20 +34,17 @@
 
     <Button
         android:id="@+id/btn_viewTasks"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:text="@string/btn_view_tasks"
-        />
+        android:layout_centerInParent="true"
+        android:text="@string/btn_view_tasks" />
 
     <Button
         android:id="@+id/btn_addTasks"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_toRightOf="@id/btn_viewTasks"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
+        android:layout_below="@id/btn_viewTasks"
+        android:layout_centerInParent="true"
         android:text="@string/btn_add_tasks" />
 
 

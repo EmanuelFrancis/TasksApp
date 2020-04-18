@@ -76,7 +76,7 @@ public class CustomAdapter extends BaseAdapter {
         }
 
 
-        Log.d("FileTag", "CustomAdapter called");
+        Log.d("FileTag", "CUSTOMADAPTER CALLED");
 
         TextView nameTxt= (TextView) convertView.findViewById(R.id.nameTxt);
         TextView priorityTxt= (TextView) convertView.findViewById(R.id.priorityTxt);

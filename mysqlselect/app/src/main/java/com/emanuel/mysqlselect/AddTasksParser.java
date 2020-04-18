@@ -351,9 +351,10 @@ drawStatusDropdown();
 
         protected void onPostExecute(String result){
 
-            Toast.makeText(c,result,Toast.LENGTH_LONG).show();
+           // Toast.makeText(c,result,Toast.LENGTH_LONG).show();
+            Toast.makeText(c, "Task Added", Toast.LENGTH_SHORT).show();
             methods = new Globals(c);
-            methods.setSelectedDropdownItem("Personal");
+            methods.setSelectedDropdownItem(catagory);
           //  String test = methods.getSelectedDropdownItem();
             Log.d("FileTag", "SETselectedDropdownItem is " + methods.getSelectedDropdownItem() );
             methods.openViewTasksActivity(catagory);

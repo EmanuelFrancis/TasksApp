@@ -120,7 +120,7 @@ public class DropdownAdapter extends BaseAdapter {
         selectedCat = new Globals(c);
         selectedItemText = (String) selectedCat.getSelectedDropdownItem();
 
-        Log.d("FileTag", "selectedItemText is " + selectedItemText);
+       // Log.d("FileTag", "selectedItemText is " + selectedItemText);
         Log.d("FileTag", "selectedItemText is " + selectedCat.getSelectedDropdownItem());
 
 
@@ -159,13 +159,19 @@ public class DropdownAdapter extends BaseAdapter {
           Log.d("FileTag", "Spinner pos is " + spinnerPos);
       //  spinnerSize = selectedCat.countSpinnerItems(dropdown_cat);
       //  Log.d("FileTag", "Spinner size is " + spinnerSize);
+        Log.d("FileTag", "am i reaching here? 1");
         dropdown_cat.setSelection(spinnerPos,true);
+        Log.d("FileTag", "am i reaching here? 2");
         dropdown_cat.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 selectedItemText = (String) adapterView.getItemAtPosition(i);
                 chosenCatItemsList.clear();
+                Log.d("FileTag", "am i reaching here? 3");
                 if (!selectedItemText.equals("Show All") ) {
+
+
+                    Log.d("FileTag", "Selected spinner item is " + selectedItemText);
                 for(int x=0;x<getCount();x++){
                     m = new Spacecraft();
                     m = spacecrafts.get(x);
@@ -182,8 +188,9 @@ public class DropdownAdapter extends BaseAdapter {
                     String chosen = String.valueOf(chosenSize);
                     Toast.makeText(c, chosen, Toast.LENGTH_SHORT).show();
                 }else {
-                        ViewTaskAdapter adapter = new ViewTaskAdapter(c, spacecrafts);
-                        lv.setAdapter(adapter);
+                    Log.d("FileTag", "Selected spinner item is showall " + selectedItemText);
+                    ViewTaskAdapter adapter = new ViewTaskAdapter(c, spacecrafts);
+                    lv.setAdapter(adapter);
                     Toast.makeText(c, "show all", Toast.LENGTH_SHORT).show();
                 }
 
@@ -195,6 +202,8 @@ public class DropdownAdapter extends BaseAdapter {
 
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
+                Log.d("FileTag", "NothingSelected ");
+
                 //      CustomAdapter adapter3 = new CustomAdapter(c, spacecrafts);
              //   lv.setAdapter(adapter);
                 //          Toast.makeText(c, selectedItemText, Toast.LENGTH_SHORT).show();
@@ -208,21 +217,16 @@ public class DropdownAdapter extends BaseAdapter {
 
 
         //ITEM CLICKS
-        convertView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(c,spacecrafts.get(position).getName(),Toast.LENGTH_SHORT).show();
-            }
-        });
+  //      convertView.setOnClickListener(new View.OnClickListener() {
+  //          @Override
+  //          public void onClick(View v) {
+  //              Toast.makeText(c,spacecrafts.get(position).getName(),Toast.LENGTH_SHORT).show();
+  //          }
+  //      });
 
         return convertView;
     }
-    //  public  void  GetCatagories(String cat){
 
-    //      String addCat = cat;
-    //      catagories.set(0, addCat);
-
-    //  }
 
     private Boolean countDups(String catag,ArrayList<String> catList) {
 

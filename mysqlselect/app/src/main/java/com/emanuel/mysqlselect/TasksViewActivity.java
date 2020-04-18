@@ -71,6 +71,8 @@ public class TasksViewActivity extends AppCompatActivity {
         //       Catagory catagories = new Catagory();
 
         lv = (ListView) findViewById(R.id.lv);
+
+        registerForContextMenu(lv);
         //     final Spinner dropdown_cat = findViewById(R.id.drp_view_cat);
 
         // spinners.holdSpinner(dropdown_cat);

@@ -20,7 +20,7 @@ public class Globals {
 
 
     public void openViewTasksActivity(String selectedCat){
-        selectedDropdownItem= selectedCat;
+      //  selectedDropdownItem= selectedCat;
 
       //  setSelectedDropdownItem(selectedCat);
 
@@ -42,7 +42,7 @@ public class Globals {
     }
 
     public void openAddTaskActivity(String selectedCat){
-        selectedDropdownItem= selectedCat;
+       // selectedDropdownItem= selectedCat;
 
         Intent intent = new Intent(mContext, AddTaskActivity.class);
         mContext.startActivity(intent);

@@ -1,20 +1,23 @@
 package com.emanuel.mysqlselect;
 
+import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import android.view.ContextMenu;
+import android.view.MenuItem;
 
 import java.util.ArrayList;
 
-public class ViewTaskAdapter  extends BaseAdapter{
+public class ViewTaskAdapter  extends BaseAdapter  {
 
-
+    MenuInflater inflater2;
     Context c;
     ArrayList<Spacecraft> spacecrafts;
     LayoutInflater inflater;
@@ -27,9 +30,10 @@ public class ViewTaskAdapter  extends BaseAdapter{
 
         //INITIALIE
         inflater= (LayoutInflater) c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+      //  inflater2 = MainActivity.getMenuInflater();
 
 
-
+        Log.d("FileTag", "VIEWTASKADAPTER CALLED");
 
 
     }
@@ -66,7 +70,7 @@ public class ViewTaskAdapter  extends BaseAdapter{
         }
 
 
-        Log.d("FileTag", "VIEWTASKADAPTER CALLED");
+        Log.d("FileTag", "VIEWTASKADAPTER VIEW CALLED");
 
         TextView nameTxt= (TextView) convertView.findViewById(R.id.nameTxt);
         TextView priorityTxt= (TextView) convertView.findViewById(R.id.priorityTxt);
@@ -89,19 +93,24 @@ public class ViewTaskAdapter  extends BaseAdapter{
         actualTimeTxt.setText(spacecrafts.get(position).getAct_time());
 
 
+
+
+
+
         //ITEM CLICKS
-        convertView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(c,spacecrafts.get(position).getName(),Toast.LENGTH_SHORT).show();
-            }
-        });
+      //  convertView.setOnClickListener(new View.OnClickListener() {
+       //     @Override
+      //      public void onClick(View v) {
+          //      Toast.makeText(c,spacecrafts.get(position).getName(),Toast.LENGTH_SHORT).show();
+    //        }
+   //     });
 
         return convertView;
     }
 
     static String getCat()
     {
+
         return cat;
     }
 

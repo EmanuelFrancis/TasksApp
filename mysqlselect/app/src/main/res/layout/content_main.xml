@@ -11,31 +11,52 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.emanuel.mysqlselect.MainActivity"
     tools:showIn="@layout/activity_main">
+    <!--
+        <Spinner
+            android:id="@+id/drp_view_cat"
+
+            style="@style/Widget.AppCompat.Spinner"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:background="@drawable/spinner_bg"
+            android:dropDownVerticalOffset="?attr/dropdownListPreferredItemHeight"
+            android:padding="5dp"
+            android:popupElevation="3dp"
+
+            android:spinnerMode="dropdown"
+            android:stateListAnimator="@drawable/spinner_sla"
+            android:text="Select A Catagory" />
+    -->
 
     <Spinner
         android:id="@+id/drp_view_cat"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        style="@style/Widget.AppCompat.Spinner"
+        android:layout_width="300dp"
+        android:layout_height="?attr/dropdownListPreferredItemHeight"
+        android:layout_margin="10dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:background="@drawable/spinner_bg"
+        android:dropDownWidth="300dp"
         android:dropDownVerticalOffset="?attr/dropdownListPreferredItemHeight"
-        android:paddingLeft="14dp"
-        android:paddingTop="14dp"
         android:paddingRight="14dp"
-        android:paddingBottom="14dp"
+        android:popupBackground="@android:color/white"
         android:popupElevation="3dp"
-
-        android:spinnerMode="dropdown"
         android:stateListAnimator="@drawable/spinner_sla"
-        android:text="Select A Catagory" />
-
-    <ListView
-        android:id="@+id/lv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/drp_view_cat"
-        >
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
-    </ListView>
-</RelativeLayout>
+        <ListView
+            android:id="@+id/lv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/drp_view_cat"
+            >
+
+
+        </ListView>
+    </RelativeLayout>

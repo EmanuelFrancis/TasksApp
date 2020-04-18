@@ -8,106 +8,69 @@
     card_view_cardCornerRadius="5dp"
     card_view_cardElevation="5dp"
 
-    android:layout_height="150dp">
+    android:layout_height="wrap_content">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
-
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Name"
-            android:id="@+id/nameTxt"
-            android:padding="10dp"
-            android:textColor="@color/colorAccent"
-
-            android:layout_alignParentLeft="true"
-            />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Description....................."
-            android:id="@+id/descTxt"
-            android:padding="10dp"
-            android:layout_below="@id/nameTxt"
-            android:layout_alignParentLeft="true"
-            />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Priority"
-            android:id="@+id/priorityTxt"
-            android:textColor="@color/colorPrimary"
-            android:padding="10dp"
-            android:layout_alignParentRight="true"
-            />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Status"
-            android:id="@+id/statusTxt"
-            android:textColor="@color/colorPrimary"
-            android:padding="10dp"
-            android:layout_below="@id/priorityTxt"
-            android:layout_alignParentRight="true"
-            />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
+            style="@style/TextView"
             android:text="Catagory"
             android:id="@+id/catTxt"
-            android:textColor="@color/colorPrimary"
-            android:padding="10dp"
-            android:layout_below="@id/statusTxt"
-            android:layout_alignParentRight="true"
             />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
+            style="@style/TextView"
+            android:text="Name"
+            android:id="@+id/nameTxt"
+            android:layout_below="@id/catTxt"
+            />
+
+        <TextView
+            style="@style/TextView"
+            android:text="Priority"
+            android:id="@+id/priorityTxt"
+            android:layout_below="@id/nameTxt"
+            />
+
+        <TextView
+            style="@style/TextView"
+            android:text="Description....................."
+            android:id="@+id/descTxt"
+            android:layout_below="@id/priorityTxt"
+            />
+
+
+
+        <TextView
+            style="@style/TextView"
+            android:text="Status"
+            android:id="@+id/statusTxt"
+            android:layout_below="@id/descTxt"
+            />
+
+
+
+        <TextView
+            style="@style/TextView"
             android:text="Deadline"
             android:id="@+id/deadlineTxt"
-            android:textColor="@color/colorPrimary"
-            android:padding="10dp"
-            android:layout_below="@id/descTxt"
-            android:layout_alignParentLeft="true"
+            android:layout_below="@id/statusTxt"
             />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
+            style="@style/TextView"
             android:text="Est Time"
             android:id="@+id/estTimeTxt"
-            android:textColor="@color/colorPrimary"
-            android:padding="10dp"
             android:layout_below="@id/deadlineTxt"
-            android:layout_alignParentLeft="true"
             />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
+            style="@style/TextView"
             android:text="Actual Time"
             android:id="@+id/actualTimeTxt"
-            android:textColor="@color/colorPrimary"
-            android:padding="10dp"
             android:layout_below="@id/estTimeTxt"
-            android:layout_alignParentLeft="true"
             />
 
     </RelativeLayout>

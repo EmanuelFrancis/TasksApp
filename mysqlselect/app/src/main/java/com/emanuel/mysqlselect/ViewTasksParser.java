@@ -25,6 +25,8 @@ public class ViewTasksParser  extends AsyncTask<Void,Void,Integer> {
     Spinner dropdown_cat;
 
 
+
+
     ProgressDialog pd;
 
     public ArrayList<Spacecraft> spacecrafts=new ArrayList<>();
@@ -38,7 +40,7 @@ public class ViewTasksParser  extends AsyncTask<Void,Void,Integer> {
 
     private Boolean EndOfList = false;
 
-
+    int x=0;
 
 
     public ViewTasksParser(Context c, ListView lv,  String jsonData, Boolean EndOfList, Spinner dropdown_cat ) {
@@ -49,8 +51,14 @@ public class ViewTasksParser  extends AsyncTask<Void,Void,Integer> {
         this.EndOfList = EndOfList;
         this.dropdown_cat = dropdown_cat;
 
-        Log.d("FileTag", "VIEWTASKSPARSER CALLED");
+       // registerForContextMenu(lv);
 
+        Log.d("FileTag", "VIEWTASKSPARSER CALLED");
+        if(EndOfList){
+
+            DropdownAdapter DDadapter = new DropdownAdapter(c, lv, spacecrafts, dropdown_cat);
+            lv.setAdapter(DDadapter);
+        }
     }
 
     @Override
@@ -61,6 +69,8 @@ public class ViewTasksParser  extends AsyncTask<Void,Void,Integer> {
         pd.setTitle("Parse");
         pd.setMessage("Parsing...Please wait");
         pd.show();
+
+
     }
 
     @Override
@@ -72,6 +82,8 @@ public class ViewTasksParser  extends AsyncTask<Void,Void,Integer> {
     protected void onPostExecute (Integer result) {
         super.onPostExecute(result);
 
+
+
         pd.dismiss();
         if (result == 0) {
             Log.d("FileTag", "Unable to parse");
@@ -79,18 +91,22 @@ public class ViewTasksParser  extends AsyncTask<Void,Void,Integer> {
 
         } else {
 
-
+            x++;
+            Log.d("FileTag", "viewable tasks" + x);
 
             ViewTaskAdapter adapter = new ViewTaskAdapter(c, spacecrafts);
             lv.setAdapter(adapter);
 
-            if(EndOfList){
+
+       //     if(EndOfList){
 
                 DropdownAdapter DDadapter = new DropdownAdapter(c, lv, spacecrafts, dropdown_cat);
                 lv.setAdapter(DDadapter);
-            }
+       //     }
+
 
         }
+
 
     }
 

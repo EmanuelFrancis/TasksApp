@@ -111,8 +111,7 @@ public class ViewTaskDownloader extends AsyncTask<Void,Void,String> {
 
                 return null;
             }
-            EndOfList = true;
-            ListEnd = "End of List";
+
             return response.toString();
 
         } catch (IOException e) {
